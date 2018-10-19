@@ -15,7 +15,7 @@ double exercise1_2(double nmb1=0., double nmb2=0., double nmb3=0.) {
   double mean = TMath::Mean(3, &nmbrs[0]);
   double median = TMath::Median(3, &nmbrs[0]);
   cout << "Arithmetic mean: " << mean << endl;
-  cout << "Median: " << median << endl;
+  cout << "Median: " << median;
 
 return nmb1 + nmb2 + nmb3;
 };
