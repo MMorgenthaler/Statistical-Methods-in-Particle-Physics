@@ -82,8 +82,8 @@ static void Histogram(){
 	canvas2->cd(3);
 	TLegend * legend = new TLegend(0.1, 0.7, 0.3, 0.9);
 	legend->SetHeader("Legend");
-  legend->AddEntry(slice_1,"bin number 50","f");
-  legend->AddEntry(slice_2,"bin number 70","f");
+  	legend->AddEntry(slice_1,"bin number 50","f");
+  	legend->AddEntry(slice_2,"bin number 70","f");
 
 	slice_1->Draw();
 	slice_2->Draw("same");
