@@ -26,7 +26,7 @@
 \usepackage{listings}
 \usepackage{pgfplots}
 \usepackage{natbib}
-\usepackage{color}
+\usepackage{xcolor}
 \usepackage{url}
 \usepackage{array}
 \usepackage{setspace}
@@ -185,24 +185,25 @@ We will consider the case where $c = 0$. \\
   \noindent \textbf{Mean}:
   \begin{align*}
   \mu & = \int\limits_{-\infty}^{\infty}dx \cdot xf(x) = \int\limits_{-2b}^{0}dx \cdot x\frac{x+2b}{3b^{2}} + \int\limits_{0}^{b}dx \cdot x\frac{2}{3}\frac{b-x}{b^{2}} \\
-      & = \frac{1}{3b^{2}}\left[\frac{6b^{3}}{3} - 4b^{3} + \frac{b^{3}}{2} - \frac{b^{3}}{3}\right] = -\frac{11b}{18}
+      & = \frac{1}{3b^{2}}\left[\frac{8b^{3}}{3} - 4b^{3} + b^{3} - \frac{2b^{3}}{3}\right] = -\frac{b}{3}
   \end{align*}
 
 
   \noindent \textbf{Median}: I suspect that the median lies between $x = -2b$ and $x = 0$.
   \begin{align*}
-  \frac{1}{2}         & = \int\limits_{-\infty}^{M}dx \cdot f(x) = \int\limits_{-2b}^{M}dx \cdot \frac{x+b}{3b^{2}} \\
-                      & = \frac{1}{3b^{2}} \left[\frac{M^{2}}{2} + Mb\right] \\
-  \Rightarrow M_{1,2} & = -3b, b
+  \frac{1}{2}         & = \int\limits_{-\infty}^{M}dx \cdot f(x) = \int\limits_{-2b}^{M}dx \cdot \frac{x+2b}{3b^{2}} \\
+                      & = \frac{1}{3b^{2}} \left[\frac{M^{2}}{2} + 2bM + 2b^{2}\right] \\
+  \Rightarrow M_{1,2} & = -2b \pm \sqrt{3}b
   \end{align*}
+  \noindent The only reasonable solution is $M = (-2 + \sqrt{3})b$.
 
   \noindent \textbf{Mode}: Same argument as before: Since $f_{1}$ (function defined for $x \leq 0$) is rising and $f_{2}$ is falling the mode lies at zero. \\
 
   \noindent \textbf{Variance}: 
   \begin{align*}
-  \sigma^{2} & = \int\limits_{-\infty}^{\infty}dx \cdot (x - \mu)^{2}f(x) = \int\limits_{-2b}^{0}dx \cdot (x - \mu)^{2}\frac{x+b}{3b^{2}} + \int\limits_{0}^{b}dx \cdot (x - \mu)^{2}\frac{2(b-x)}{3b^{2}} \\
+  \sigma^{2} & = \int\limits_{-\infty}^{\infty}dx \cdot (x - \mu)^{2}f(x) = \int\limits_{-2b}^{0}dx \cdot \left(x + \frac{b}{3}\right)^{2}\frac{x+b}{3b^{2}} + \int\limits_{0}^{b}dx \cdot \left(x + \frac{b}{3}\right)^{2}\frac{2(b-x)}{3b^{2}} \\
              & = ... \\
-             & = \frac{151}{324}b^{2}
+             & = \frac{7}{18}b^{2}
   \end{align*}
 \end{itemize}
 
