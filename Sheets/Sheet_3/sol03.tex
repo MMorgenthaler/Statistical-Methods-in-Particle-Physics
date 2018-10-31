@@ -1,0 +1,230 @@
+\documentclass[10pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% packages %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[english]{babel} % Choose english language
+\usepackage[labelfont = bf, font = small]{caption} % Use caption package. Use bold font for caption.
+\usepackage{siunitx} % Use siunitx for unit representation.
+\newcommand{\RM}[1]{\MakeUppercase{\romannumeral #1{:}}}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{lmodern}
+\usepackage{filecontents}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[bottom]{footmisc}
+\usepackage{leftidx}
+\usepackage{subcaption}
+\usepackage[explicit]{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{pgfplots}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{hyperref} % Referencing
+\usepackage{verbatim}
+\usepackage{changepage}
+\usepackage[footnote, printonlyused]{acronym}
+\usepackage{scrextend}
+\usepackage{geometry} % Change geometry of page layout
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{tocloft}
+\usepackage{listings}
+\usepackage{feynmp-auto} % Create fenynman diagrams
+\usepackage{tikz-feynman} % Create fenynman diagrams
+\usepackage{lipsum} % For testing. insert random text
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% new commands and environments %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Create custom font
+\newenvironment{myfont}{\fontfamily{put}\selectfont}{\par}
+
+% Adapt spacing between lines
+\doublespacing
+
+% Delete dots from toc
+\renewcommand{\cftdot}{}
+
+% Change section label to roman
+\renewcommand{\thesection}{\Roman{section}}
+
+% Customize section layout
+\newcommand{\ssection}[1]{%
+  \section[#1]{\centering\normalfont\scshape #1}}
+\newcommand{\ssubsection}[1]{%
+  \subsection[#1]{\centering\normalfont\itshape #1}}
+\newcommand{\ssubsubsection}[1]{%
+  \subsubsection[#1]{\centering\normalfont #1}}
+
+% Import tikz libraries for figures
+\usetikzlibrary{positioning,shadows,arrows}
+
+% Create footnotereferencing
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
+% Change layout of page
+\hypersetup{
+	colorlinks = true,
+  linkbordercolor = {red},
+  citebordercolor = {red},
+  menubordercolor = {blue},
+  urlbordercolor = {blue},
+  linktoc = {page},
+  pagebackref = {True},
+  pdftitle = {Solution 01},
+  pdfauthor = {Nils Hoyer},
+  pdfcreator  = {pdflatex},
+  pdfproducer = {LaTeX}
+}
+
+% Change geometry of page
+\geometry{a4paper, top = 20mm, left = 20mm, right = 20mm, bottom = 15mm, headsep = 8mm, footskip = 10mm, includeheadfoot}
+
+% Decalre uits for SIunitx
+\DeclareSIUnit\femtobarn{fb^{-1}}
+
+% Define colors
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.6,0.2}
+\definecolor{deeporange}{rgb}{0.9,0.2,0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% start document %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{myfont}
+\lstset{language=C++,
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  commentstyle=\color{green}\ttfamily,
+  morecomment=[l][\color{magenta}]{\#}
+}
+
+
+
+\begin{center}
+	\begin{Large}
+		\textsc{Solution for homework assignment no. 03} \\
+	\end{Large}
+	\vspace*{0.4cm}
+		Nils Hoyer, Maurice Morgenthaler
+		\vspace*{1cm}
+\end{center}
+
+\section*{Exercise 3.1}
+
+We are asked about the probability density function (PDF) of $f(z)$ where $z = x \times y$, $x$ and $y$ are independent variables and $h(x)$ and $g(y)$ are their PDF's, respectively.
+
+Results to be added.
+
+\section*{Exercise 3.2}
+
+We are asked to determine what the expectation value of $E[z]$ is where $z = z(x)$ and
+\begin{equation}
+  E[x] = \int\limits_{-\infty}^{\infty} dx \cdot xf(x).
+\end{equation}
+
+Results to be added.
+
+\section*{Exercise 3.3}
+
+Please note that we will only include grahpics and solutions here but not the code itself as it would take up a few pages.
+
+\begin{itemize}
+  \item[\textbf{a)}] \label{part_a}
+    We are asked to read the .txt-file and plots each variable into a separate histogram as well as creating two-dimensional histograms to visualize potential correlations.
+    Please find the plots in figure \ref{fig:ex_a_individual} and \ref{fig:ex_a_correlation}.
+
+    \begin{figure}[H]
+      \centering
+      \caption[]{Histograms of the momentum $p$, energy $E$, normed velocity $\beta$ and mass $m$.}
+      \includegraphics[width = 0.5 \textheight]{./ex_a_individual.png}
+      \label{fig:ex_a_individual}
+    \end{figure}
+
+    \begin{figure}[H]
+      \centering
+      \caption[]{Histograms of potential correlations between the momentum $p$, energy $E$, normed velocity $\beta$ and mass $m$.}
+      \includegraphics[width = 0.5 \textheight]{./ex_a_correlation.png}
+      \label{fig:ex_a_correlation}
+    \end{figure}
+
+  \item[\textbf{b)}] \label{part_b}
+    We are aksed to explicitly determine the mean and variance for each variable as well as obtaining the covariances for each set of pairs of variables.
+    The results from the explicit determination as well as the results given by functions from ROOT are given in table \ref{tab:ex_b_results} which you can find below.
+
+    \begin{longtable}{*{7}l}
+      \caption[]{Results obtained for each variable and pair of variables. \\ Results to be added.}
+      \endfirsthead
+      \endhead
+      \toprule
+      \multirow{2}{*}{\textbf{Set of variables}} & \multicolumn{2}{c}{\textbf{Mean}} & \multicolumn{2}{c}{\textbf{Variance}} & \multicolumn{2}{c}{\textbf{Covariance}} \\
+      \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+                       & \textbf{Code} & \textbf{ROOT} & \textbf{Code} & \textbf{ROOT} & \textbf{Code} & \textbf{ROOT} \\
+      \midrule
+      $p$              & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\
+      $E$              & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\
+      $\beta$          & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\
+      $m$              & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\ \hline
+      $p \times E$     & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
+      $p \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
+      $p \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
+      $E \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
+      $E \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
+      $\beta \times m$ & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
+      \bottomrule
+      \label{tab:ex_b_results}
+    \end{longtable}
+
+  \item[\textbf{c)}] \label{part_c}
+    We are asked to determine and explain the correlation coefficients between the paris of variables.
+    Please find the results for the coefficients in table \ref{tab:ex_c_coefficients}.
+
+    \begin{longtable}{*{2}l}
+      \caption[]{Correlation coefficients between each pair of variables. \\ Results to be added.}
+      \endfirsthead
+      \endhead
+      \toprule
+      \textbf{Pair of variables} & \textbf{Correlation coefficient} \\
+      \midrule
+      $p \times E$     & \num{0.0} \\
+      $p \times \beta$ & \num{0.0} \\
+      $p \times m$     & \num{0.0} \\
+      $E \times \beta$ & \num{0.0} \\
+      $E \times m$     & \num{0.0} \\
+      $\beta \times m$ & \num{0.0} \\
+      \bottomrule
+      \label{tab:ex_c_coefficients}
+    \end{longtable}
+
+  \item[\textbf{d)}] \label{part_d}
+    We are asked to calculate the covariance $\textrm{cov}[m, E]$ analytically and compare the result to the one obtained in part a.
+
+    Results to be added.
+
+  \item[\textbf{e)}] \label{part_e}
+    We are asked to calculate the uncertainity of $T = E - m$ taken the correlation between $E$ and $m$ into account.
+
+    Results to be added.
+\end{itemize}
+
+\end{myfont}
+\end{document}
