@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <vector>
 
 #include "TFile.h"
 #include "TCanvas.h"
@@ -17,7 +18,8 @@ using namespace std;
 void exercise3_3() {
   ifstream data; // data file to read
   string line; // string used to read the file
-  double p, beta, e, m;
+  vector<double> p, beta, e, m;
+  double p_temp, beta_temp, e_temp, m_temp;
   double bins = 100;
   double p_low = 265;
   double p_high = 305;
@@ -28,6 +30,8 @@ void exercise3_3() {
   double m_low = 115;
   double m_high = 165;
   double p_mean, p_var, beta_mean, beta_var, e_mean, e_var, m_mean, m_var;
+  double pBeta_cov, pE_cov, pM_cov, betaE_cov, betaM_cov, eM_cov;
+  double pBeta_cor, pE_cor, pM_cor, betaE_cor, betaM_cor, eM_cor;
   // data to be read
   data.open ("exercise_3_3.txt");
 	
@@ -54,63 +58,107 @@ void exercise3_3() {
     while (getline(data, line))
     {
       stringstream ss(line);
-      ss >> p >> beta >> e >> m;
-      hP->Fill(p);
-      hBeta->Fill(beta);
-      hE->Fill(e);
-      hM->Fill(m);
-      hPBeta->Fill(p,beta);
-      hPE->Fill(p,e);
-      hPM->Fill(p,m);
-      hBetaE->Fill(beta,e);
-      hBetaM->Fill(beta,m);
-      hEM->Fill(e,m);
+      ss >> p_temp >> beta_temp >> e_temp >> m_temp;
+      p.push_back(p_temp);      
+      beta.push_back(beta_temp);      
+      e.push_back(e_temp);      
+      m.push_back(m_temp);      
+
+      hP->Fill(p_temp);
+      hBeta->Fill(beta_temp);
+      hE->Fill(e_temp);
+      hM->Fill(m_temp);
+      hPBeta->Fill(p_temp,beta_temp);
+      hPE->Fill(p_temp,e_temp);
+      hPM->Fill(p_temp,m_temp);
+      hBetaE->Fill(beta_temp,e_temp);
+      hBetaM->Fill(beta_temp,m_temp);
+      hEM->Fill(e_temp,m_temp);
      
-      p_mean += p;
-      beta_mean += beta;
-      e_mean += e;
-      m_mean += m;
+      p_mean += p_temp;
+      beta_mean += beta_temp;
+      e_mean += e_temp;
+      m_mean += m_temp;
     }
   }
   else cout << "Unable to open data " << endl;
- 
-  p_mean /= hP->GetEntries();
-  beta_mean /= hBeta->GetEntries();
-  e_mean /= hE->GetEntries();
-  m_mean /= hM->GetEntries();
-
   data.close(); 
- 
-  data.open ("exercise_3_3.txt");
-  if (data.is_open())
-  {
-    while (getline(data, line))
-    {
-      stringstream ss(line);
-      ss >> p >> beta >> e >> m;
-     
-      p_var += (p-p_mean)*(p-p_mean);
-      beta_var += (beta-beta_mean)*(beta-beta_mean);
-      e_var += (e-e_mean)*(e-e_mean);
-      m_var += (m-m_mean)*(m-m_mean);
-    }
+
+  double nevt = hP->GetEntries() - 1.;
+
+  // the first line of the .txt file which is a string makes no difference for the mean as it is saved as 0
+  p_mean /= nevt;
+  beta_mean /= nevt;
+  e_mean /= nevt;
+  m_mean /= nevt;
+  
+  for(int i=1; i< nevt; i++) { 
+    p_var += (p[i]-p_mean)*(p[i]-p_mean);
+    beta_var += (beta[i]-beta_mean)*(beta[i]-beta_mean);
+    e_var += (e[i]-e_mean)*(e[i]-e_mean);
+    m_var += (m[i]-m_mean)*(m[i]-m_mean);
+    pBeta_cov += (p[i]-p_mean)*(beta[i]-beta_mean);
+    pE_cov += (p[i]-p_mean)*(e[i]-e_mean);
+    pM_cov += (p[i]-p_mean)*(m[i]-m_mean);
+    betaE_cov += (beta[i]-beta_mean)*(e[i]-e_mean);
+    betaM_cov += (beta[i]-beta_mean)*(m[i]-m_mean);
+    eM_cov += (e[i]-e_mean)*(m[i]-m_mean);
   }
-  else cout << "Unable to open data " << endl;
-  p_var /= hP->GetEntries();
-  beta_var /= hBeta->GetEntries();
-  e_var /= hE->GetEntries();
-  m_var /= hM->GetEntries();
+  p_var /= nevt;
+  beta_var /= nevt;
+  e_var /= nevt;
+  m_var /= nevt;
+  pBeta_cov /= nevt;
+  pE_cov /= nevt;
+  pM_cov /= nevt;
+  betaE_cov /= nevt;
+  betaM_cov /= nevt;
+  eM_cov /= nevt;
 
-  data.close();
+  cout << "Part a)" << endl;
+  cout << "  mean of momentum p: " << p_mean << " [MeV]" << endl
+       << "  variance of momentum p: " << p_var << " [MeV²]" << endl << endl
+       << "  mean of beta: " << beta_mean << endl
+       << "  variance of beta: " << beta_var << endl << endl
+       << "  mean of energy E: " << e_mean << " [MeV]" << endl
+       << "  variance of energy E: " << e_var << " [MeV²]" << endl << endl
+       << "  mean of mass M: " << m_mean << " [MeV]" << endl
+       << "  variance of mass M: " << m_var << " [MeV²]" << endl << endl;   
+  cout << "  covariance of p and beta: " << pBeta_cov << " [MeV]" << endl    
+       << "  covariance of p and E: " << pE_cov << " [MeV²]" << endl    
+       << "  covariance of p and m: " << pM_cov << " [MeV²]" << endl 
+       << "  covariance of beta and E: " << betaE_cov << " [MeV]" << endl 
+       << "  covariance of beta and m: " << betaM_cov << " [MeV]" << endl 
+       << "  covariance of E and m: " << eM_cov << " [MeV²]" << endl << endl; 
 
-  cout << "mean of momentum p: " << p_mean << " [MeV]" << endl
-       << "variance of momentum p: " << p_var << " [MeV]" << endl << endl
-       << "mean of beta: " << beta_mean << endl
-       << "variance of beta: " << beta_var << endl << endl
-       << "mean of energy E: " << e_mean << " [MeV]" << endl
-       << "variance of energy E: " << e_var << " [MeV]" << endl << endl
-       << "mean of mass M: " << m_mean << " [MeV]" << endl
-       << "variance of mass M: " << m_var << " [MeV]" << endl << endl;       
+  pBeta_cor = pBeta_cov/sqrt(p_var*beta_var);
+  pE_cor = pE_cov/sqrt(p_var*e_var);
+  pM_cor = pM_cov/sqrt(p_var*m_var);
+  betaE_cor = betaE_cov/sqrt(beta_var*e_var);
+  betaM_cor = betaM_cov/sqrt(beta_var*m_var);
+  eM_cor = eM_cov/sqrt(e_var*m_var);
+
+  cout << "Part b)" << endl;
+  cout << "  correlation of p and beta: " << pBeta_cor << endl
+       << "  correlation of p and E: " << pE_cor << endl
+       << "  correlation of p and m: " << pM_cor << endl
+       << "  correlation of beta and E: " << betaE_cor << endl
+       << "  correlation of beta and m: " << betaM_cor << endl
+       << "  correlation of E and m: " << eM_cor << endl << endl;
+
+  // not sure about this part d
+  double eM_cov2;  
+  for(int i=1; i< nevt; i++) {
+    for(int j=1; i< nevt; i++) {
+      eM_cov2 += ((p[i]/sqrt(beta[i]*beta[i]/((1-beta[i])*(1-beta[i]))))-(p[j]/sqrt(beta[j]*beta[j]/((1-beta[j])*(1-beta[j])))))*(p[i]/beta[i]-p[j]/beta[j]);
+    }
+  } 
+
+  eM_cov2 /= 2*nevt*nevt;
+
+  cout << "Part c)" << endl;
+  cout << "  covariance between m and E calculated with p and beta: " 
+       << eM_cov2 << endl << endl;  
 
   c1->cd(1);
   hP->SetXTitle("p [MeV]");
