@@ -79,15 +79,15 @@
 
 % Change layout of page
 \hypersetup{
-	colorlinks = true,
+  colorlinks = true,
   linkbordercolor = {red},
   citebordercolor = {red},
   menubordercolor = {blue},
   urlbordercolor = {blue},
   linktoc = {page},
   pagebackref = {True},
-  pdftitle = {Solution 01},
-  pdfauthor = {Nils Hoyer},
+  pdftitle = {Solution 03},
+  pdfauthor = {Nils Hoyer, Maurice Morgenthaler},
   pdfcreator  = {pdflatex},
   pdfproducer = {LaTeX}
 }
@@ -118,22 +118,38 @@
   morecomment=[l][\color{magenta}]{\#}
 }
 
-
-
 \begin{center}
-	\begin{Large}
-		\textsc{Solution for homework assignment no. 03} \\
-	\end{Large}
+  \begin{Large}
+    \textsc{Solution for homework assignment no. 03} \\
+  \end{Large}
 	\vspace*{0.4cm}
-		Nils Hoyer, Maurice Morgenthaler
-		\vspace*{1cm}
+    Nils Hoyer, Maurice Morgenthaler
+  \vspace*{1cm}
 \end{center}
 
 \section*{Exercise 3.1}
 
 We are asked about the probability density function (PDF) of $f(z)$ where $z = x \times y$, $x$ and $y$ are independent variables and $h(x)$ and $g(y)$ are their PDF's, respectively.
+The hint gives us the relation that for $n$ \underline{independent} variables we can get the PDF $f(z)$ of $z = (x_{1}, ..., x_{n})$ via
 
-Results to be added.
+\begin{equation}
+  f(z)dz := \int \; ... \; \int_{\partial S} dx_{1} ... dx_{n} \cdot g(x_{1}, ..., x_{n})
+\end{equation}
+
+\noindent where $\partial S$ is the boundary of the system of parameters. \\
+We start with
+$$
+f(z)dz = \int\int dxdy \cdot g(x, y),
+$$
+\noindent such that our task is to determine $g(x, y)$. \\
+
+\noindent From the lecture we know that $g(x, y) = g_{x}(x) \cdot g_{y}(y)$. \\
+Therefore
+
+\begin{equation}
+  f(z)dz = \int\int dxdy \cdot h(x)g(y)
+\end{equation}
+
 
 \section*{Exercise 3.2}
 
@@ -142,7 +158,13 @@ We are asked to determine what the expectation value of $E[z]$ is where $z = z(x
   E[x] = \int\limits_{-\infty}^{\infty} dx \cdot xf(x).
 \end{equation}
 
-Results to be added.
+\begin{align*}
+E[z(x)] & = \int\limits_{-\infty}^{\infty} dz(x) \cdot z(x)f(z(x)) \\
+     & = \int\limits_{-\infty}^{\infty} dx \frac{dz}{dx} \cdot x\frac{z}{x}f\left(z(x)\right) \\
+     & = \int\limits_{-\infty}^{\infty} dx \cdot x \underbrace{f\left(z(x)\right) \cdot \frac{z}{x}}_{ = f(x)} \\
+     & = \int\limits_{-\infty}^{\infty} dx \cdot x f(x)
+\end{align*}
+
 
 \section*{Exercise 3.3}
 
@@ -176,20 +198,20 @@ Please note that we will only include grahpics and solutions here but not the co
       \endfirsthead
       \endhead
       \toprule
-      \multirow{2}{*}{\textbf{Set of variables}} & \multicolumn{2}{c}{\textbf{Mean}} & \multicolumn{2}{c}{\textbf{Variance}} & \multicolumn{2}{c}{\textbf{Covariance}} \\
+      \multirow{2}{*}{\textbf{Set of variables}} & \multicolumn{2}{c}{\textbf{Mean in [MeV]}} & \multicolumn{2}{c}{\textbf{Variance in [MeV$^{2}$]}} & \multicolumn{2}{c}{\textbf{Covariance in [MeV$^{2}$]}} \\
       \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
                        & \textbf{Code} & \textbf{ROOT} & \textbf{Code} & \textbf{ROOT} & \textbf{Code} & \textbf{ROOT} \\
       \midrule
-      $p$              & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\
-      $E$              & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\
-      $\beta$          & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\
-      $m$              & \num{0.0} & \num{0.0} & \num{0.0} & \num{0.0} & $-$       & $-$       \\ \hline
-      $p \times E$     & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
-      $p \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
-      $p \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
-      $E \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
-      $E \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
-      $\beta \times m$ & $-$       & $-$       & $-$       & $-$       & \num{0.0} & \num{0.0} \\
+      $p$              & \num{287.0} & \num{0.0} & \num{32.81} & \num{0.0} & $-$       & $-$       \\
+      $E$              & \num{318.9} & \num{0.0} & \num{50.54} & \num{0.0} & $-$       & $-$       \\
+      $\beta$          & \num{0.900} & \num{0.0} & \num{0.001} & \num{0.0} & $-$       & $-$       \\
+      $m$              & \num{138.9} & \num{0.0} & \num{61.47} & \num{0.0} & $-$       & $-$       \\ \hline
+      $p \times E$     & $-$       & $-$       & $-$       & $-$       & \num{0.893} & \num{0.0} \\
+      $p \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{0.007} & \num{0.0} \\
+      $p \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.350} & \num{0.0} \\
+      $E \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{-0.100} & \num{0.0} \\
+      $E \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.733} & \num{0.0} \\
+      $\beta \times m$ & $-$       & $-$       & $-$       & $-$       & \num{-0.215} & \num{0.0} \\
       \bottomrule
       \label{tab:ex_b_results}
     \end{longtable}
@@ -205,15 +227,29 @@ Please note that we will only include grahpics and solutions here but not the co
       \toprule
       \textbf{Pair of variables} & \textbf{Correlation coefficient} \\
       \midrule
-      $p \times E$     & \num{0.0} \\
-      $p \times \beta$ & \num{0.0} \\
-      $p \times m$     & \num{0.0} \\
-      $E \times \beta$ & \num{0.0} \\
-      $E \times m$     & \num{0.0} \\
-      $\beta \times m$ & \num{0.0} \\
+      $p \times E$     & \num{0.893} \\
+      $p \times \beta$ & \num{0.007} \\
+      $p \times m$     & \num{0.350} \\
+      $E \times \beta$ & \num{-0.100} \\
+      $E \times m$     & \num{0.733} \\
+      $\beta \times m$ & \num{-0.215} \\
       \bottomrule
       \label{tab:ex_c_coefficients}
     \end{longtable}
+
+    \noindent To explain these correlation coefficients we will have a look at the analytically formulae.
+    For relativistic particles we have
+    \begin{align}
+      \gamma      & = \frac{E}{m}, \label{eq:gamma}\\
+      \beta       & = \frac{p}{E}, \label{eq:beta}\\
+      \gamma\beta & = \frac{p}{m} \quad \textrm{and} \label{eq:gammabeta}\\
+      \gamma      & = \sqrt{\frac{1}{1 - \beta^{2}}}. \label{eq:gamma2}
+    \end{align}
+
+    \noindent Note that $\gamma\beta = \frac{\beta}{\sqrt{1-\beta^{2}}} \rightarrow \beta = \frac{\gamma}{\sqrt{1 + \gamma^{2}}}$. \\
+
+    \noindent From equation \ref{eq:gamma} we can directly see that $E \propto m$.
+    From equation \ref{eq:beta} we can see that $E \propto p$.
 
   \item[\textbf{d)}] \label{part_d}
     We are asked to calculate the covariance $\textrm{cov}[m, E]$ analytically and compare the result to the one obtained in part a.
