@@ -221,7 +221,7 @@ Please note that we will only include grahpics and solutions here but not the co
     Please find the results for the coefficients in table \ref{tab:ex_c_coefficients}.
 
     \begin{longtable}{*{2}l}
-      \caption[]{Correlation coefficients between each pair of variables. \\ Results to be added.}
+      \caption[]{Correlation coefficients between each pair of variables. \\ }
       \endfirsthead
       \endhead
       \toprule
@@ -252,14 +252,34 @@ Please note that we will only include grahpics and solutions here but not the co
     From equation \ref{eq:beta} we can see that $E \propto p$.
 
   \item[\textbf{d)}] \label{part_d}
-    We are asked to calculate the covariance $\textrm{cov}[m, E]$ analytically and compare the result to the one obtained in part a.
+    We are asked to calculate the covariance $\textrm{cov}[m, E]$ analytically with the values for $p$ and $\beta$ of part a and compare the result to the one obtained in part b.\\
+   The covariance $\textrm{cov}[m, E]$ can be written as:
+   \begin{equation}
+   \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n (m_i - m_j)* (E_i - E_j)
+   \end{equation}
 
-    Results to be added.
+   With equation \ref{eq:beta} and \ref{eq:gammabeta} we get as formula:
+   \begin{equation}
+   \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n \left(\frac{p_i*\sqrt{1- \beta_i^2}}{\beta_i} -  \frac{p_j*\sqrt{1- \beta_j^2}}{\beta_j}\right)* \left(\frac{p_i}{\beta_i} - \frac{p_j}{\beta_j} \right)
+   \end{equation}
+   Using the values of part a results in $\textrm{cov}[m, E] = $.
+  
 
   \item[\textbf{e)}] \label{part_e}
-    We are asked to calculate the uncertainity of $T = E - m$ taken the correlation between $E$ and $m$ into account.
-
-    Results to be added.
+    We are asked to calculate the uncertainity of $T = E - m$ taken the correlation between $E$ and $m$ into account. \\
+    In general the uncertainty $u_y$ of a value $y$ with correlated variables $x_i$ is given by:
+   \begin{equation}
+    u_y = \sqrt{\sum_{i=1}^m  \left(\frac{\delta y}{\delta x_i}*u_i\right)^2 + 2 \sum_{i=1}^{m-1} \sum_{k=i+1}^{m}  \left(\frac{\delta y}{\delta x_i}\right)  \left(\frac{\delta y}{\delta x_k}\right)*\textrm{cov}[x_i, x_k]}
+   \end{equation}
+   
+   For our formula it reduces to:
+  \begin{align}
+    u_T &= \sqrt{ (u_E)^2 + (u_m)^2 - 2*cov[E, m]} \\
+           &= \sqrt{ \textrm{std}[E]^2 +\textrm{ std}[m]^2 - 2*\textrm{cov}[E, m]} \\
+           &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2*\textrm{cov}[E, m]} 
+   \end{align}
+  With the values from table \ref{tab:ex_b_results} we get an uncertainty of $u_T = ... MeV$. Without the correlation term the uncertainty would be         $u_T^* = 10.58 MeV$ so it makes a difference of $\Delta u_T = ... MeV$.
+   
 \end{itemize}
 
 \end{myfont}
