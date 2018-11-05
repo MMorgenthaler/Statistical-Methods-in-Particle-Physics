@@ -220,19 +220,21 @@ Please note that we will only include grahpics and solutions here but not the co
     We are asked to determine and explain the correlation coefficients between the paris of variables.
     Please find the results for the coefficients in table \ref{tab:ex_c_coefficients}.
 
-    \begin{longtable}{*{2}l}
+    \begin{longtable}{*{3}l}
       \caption[]{Correlation coefficients between each pair of variables. \\ }
       \endfirsthead
       \endhead
       \toprule
-      \textbf{Pair of variables} & \textbf{Correlation coefficient} \\
+      \multirow{2}{*}{\textbf{Pair of variables}} & \multicolumn{2}{c}{\textbf{Correlation coefficient}} \\
+      \cmidrule(lr){2-3}
+       & \textbf{Code} & \textbf{ROOT} \\
       \midrule
-      $p \times E$     & \num{0.893} \\
-      $p \times \beta$ & \num{0.007} \\
-      $p \times m$     & \num{0.350} \\
-      $E \times \beta$ & \num{-0.100} \\
-      $E \times m$     & \num{0.733} \\
-      $\beta \times m$ & \num{-0.215} \\
+      $p \times E$     & \num{0.893}  & \num{0.0} \\
+      $p \times \beta$ & \num{0.007}  & \num{0.0} \\
+      $p \times m$     & \num{0.350}  & \num{0.0} \\
+      $E \times \beta$ & \num{-0.100} & \num{0.0} \\
+      $E \times m$     & \num{0.733}  & \num{0.0} \\
+      $\beta \times m$ & \num{-0.215} & \num{0.0} \\
       \bottomrule
       \label{tab:ex_c_coefficients}
     \end{longtable}
@@ -255,12 +257,12 @@ Please note that we will only include grahpics and solutions here but not the co
     We are asked to calculate the covariance $\textrm{cov}[m, E]$ analytically with the values for $p$ and $\beta$ of part a and compare the result to the one obtained in part b.\\
    The covariance $\textrm{cov}[m, E]$ can be written as:
    \begin{equation}
-   \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n (m_i - m_j)* (E_i - E_j)
+   \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n (m_i - m_j) \cdot (E_i - E_j)
    \end{equation}
 
    With equation \ref{eq:beta} and \ref{eq:gammabeta} we get as formula:
    \begin{equation}
-   \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n \left(\frac{p_i*\sqrt{1- \beta_i^2}}{\beta_i} -  \frac{p_j*\sqrt{1- \beta_j^2}}{\beta_j}\right)* \left(\frac{p_i}{\beta_i} - \frac{p_j}{\beta_j} \right)
+   \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n \left(\frac{p_i \cdot \sqrt{1- \beta_i^2}}{\beta_i} -  \frac{p_j \cdot \sqrt{1- \beta_j^2}}{\beta_j}\right) \cdot \left(\frac{p_i}{\beta_i} - \frac{p_j}{\beta_j} \right)
    \end{equation}
    Using the values of part a results in $\textrm{cov}[m, E] = $.
   
@@ -269,14 +271,14 @@ Please note that we will only include grahpics and solutions here but not the co
     We are asked to calculate the uncertainity of $T = E - m$ taken the correlation between $E$ and $m$ into account. \\
     In general the uncertainty $u_y$ of a value $y$ with correlated variables $x_i$ is given by:
    \begin{equation}
-    u_y = \sqrt{\sum_{i=1}^m  \left(\frac{\delta y}{\delta x_i}*u_i\right)^2 + 2 \sum_{i=1}^{m-1} \sum_{k=i+1}^{m}  \left(\frac{\delta y}{\delta x_i}\right)  \left(\frac{\delta y}{\delta x_k}\right)*\textrm{cov}[x_i, x_k]}
+    u_y = \sqrt{\sum_{i=1}^m  \left(\frac{\delta y}{\delta x_i} \cdot u_i\right)^2 + 2 \sum_{i=1}^{m-1} \sum_{k=i+1}^{m}  \left(\frac{\delta y}{\delta x_i}\right)  \left(\frac{\delta y}{\delta x_k}\right) \cdot \textrm{cov}[x_i, x_k]}
    \end{equation}
    
    For our formula it reduces to:
   \begin{align}
-    u_T &= \sqrt{ (u_E)^2 + (u_m)^2 - 2*cov[E, m]} \\
-           &= \sqrt{ \textrm{std}[E]^2 +\textrm{ std}[m]^2 - 2*\textrm{cov}[E, m]} \\
-           &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2*\textrm{cov}[E, m]} 
+    u_T &= \sqrt{ (u_E)^2 + (u_m)^2 - 2 \¢dot cov[E, m]} \\
+           &= \sqrt{ \textrm{std}[E]^2 +\textrm{ std}[m]^2 - 2 \cdot \textrm{cov}[E, m]} \\
+           &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2 \cdot \textrm{cov}[E, m]} 
    \end{align}
   With the values from table \ref{tab:ex_b_results} we get an uncertainty of $u_T = ... MeV$. Without the correlation term the uncertainty would be         $u_T^* = 10.58 MeV$ so it makes a difference of $\Delta u_T = ... MeV$.
    
