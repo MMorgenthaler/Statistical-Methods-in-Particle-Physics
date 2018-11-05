@@ -83,10 +83,15 @@ void exercise3_3() {
   }
   else cout << "Unable to open data " << endl;
   data.close(); 
-
-  double nevt = hP->GetEntries() - 1.;
-
-  // the first line of the .txt file which is a string makes no difference for the mean as it is saved as 0
+  
+  // erase first line (string)
+  p.erase(p.begin());
+  beta.erase(beta.begin());
+  e.erase(e.begin());
+  m.erase(m.begin());
+  
+  double nevt = hP->GetEntries() -1.;
+  
   p_mean /= nevt;
   beta_mean /= nevt;
   e_mean /= nevt;
@@ -117,19 +122,42 @@ void exercise3_3() {
 
   cout << "Part a)" << endl;
   cout << "  mean of momentum p: " << p_mean << " [MeV]" << endl
-       << "  variance of momentum p: " << p_var << " [MeV²]" << endl << endl
+       << "  mean of momentum p (TH1): " << hP->GetMean() << " [MeV]" << endl
+       << "  variance of momentum p: " << p_var << " [MeV²]" << endl
+       << "  variance of momentum p (TH1): " << pow(hP->GetRMS(),2) << " [MeV²]" << endl << endl
+       
        << "  mean of beta: " << beta_mean << endl
-       << "  variance of beta: " << beta_var << endl << endl
+       << "  mean of beta (TH1): " << hBeta->GetMean() << endl
+       << "  variance of beta: " << beta_var << endl
+       << "  variance of beta (TH1): " << pow(hBeta->GetRMS(),2) << endl << endl
+       
        << "  mean of energy E: " << e_mean << " [MeV]" << endl
-       << "  variance of energy E: " << e_var << " [MeV²]" << endl << endl
+       << "  mean of energy E (TH1): " << hE->GetMean() << " [MeV]" << endl
+       << "  variance of energy E: " << e_var << " [MeV²]" << endl
+       << "  variance of energy E (TH1): " << pow(hE->GetRMS(),2) << " [MeV²]" << endl << endl
+       
        << "  mean of mass M: " << m_mean << " [MeV]" << endl
-       << "  variance of mass M: " << m_var << " [MeV²]" << endl << endl;   
-  cout << "  covariance of p and beta: " << pBeta_cov << " [MeV]" << endl    
-       << "  covariance of p and E: " << pE_cov << " [MeV²]" << endl    
+       << "  mean of mass M (TH1): " << hM->GetMean() << " [MeV]" << endl
+       << "  variance of mass M: " << m_var << " [MeV²]" << endl
+       << "  variance of mass M (TH1): " << pow(hM->GetRMS(),2) << " [MeV²]" << endl << endl 
+           
+       << "  covariance of p and beta: " << pBeta_cov << " [MeV]" << endl    
+       << "  covariance of p and beta (TH2): " << hPBeta->GetCovariance() << " [MeV]" << endl << endl
+           
+       << "  covariance of p and E: " << pE_cov << " [MeV²]" << endl
+       << "  covariance of p and E (TH2): " << hPE->GetCovariance() << " [MeV²]" << endl << endl
+        
        << "  covariance of p and m: " << pM_cov << " [MeV²]" << endl 
+       << "  covariance of p and m (TH2): " << hPM->GetCovariance() << " [MeV²]" << endl << endl
+       
        << "  covariance of beta and E: " << betaE_cov << " [MeV]" << endl 
+       << "  covariance of beta and E (TH2): " << hBetaE->GetCovariance() << " [MeV]" << endl << endl
+       
        << "  covariance of beta and m: " << betaM_cov << " [MeV]" << endl 
-       << "  covariance of E and m: " << eM_cov << " [MeV²]" << endl << endl; 
+       << "  covariance of beta and m (TH2): " << hBetaM->GetCovariance() << " [MeV]" << endl << endl
+       
+       << "  covariance of E and m: " << eM_cov << " [MeV²]" << endl
+       << "  covariance of E and m (TH2): " << hEM->GetCovariance() << " [MeV²]" << endl << endl; 
 
   pBeta_cor = pBeta_cov/sqrt(p_var*beta_var);
   pE_cor = pE_cov/sqrt(p_var*e_var);
@@ -140,76 +168,87 @@ void exercise3_3() {
 
   cout << "Part b)" << endl;
   cout << "  correlation of p and beta: " << pBeta_cor << endl
+       << "  correlation of p and beta (TH2): " << hPBeta->GetCorrelationFactor() << endl << endl
+       
        << "  correlation of p and E: " << pE_cor << endl
+       << "  correlation of p and E (TH2): " << hPE->GetCorrelationFactor() << endl << endl
+       
        << "  correlation of p and m: " << pM_cor << endl
+       << "  correlation of p and m (TH2): " << hPM->GetCorrelationFactor() << endl << endl
+       
        << "  correlation of beta and E: " << betaE_cor << endl
+       << "  correlation of beta and E (TH2): " << hBetaE->GetCorrelationFactor() << endl << endl
+       
        << "  correlation of beta and m: " << betaM_cor << endl
-       << "  correlation of E and m: " << eM_cor << endl << endl;
+       << "  correlation of beta and m (TH2): " << hBetaM->GetCorrelationFactor() << endl << endl
+       
+       << "  correlation of E and m: " << eM_cor << endl
+       << "  correlation of E and m (TH2): " << hEM->GetCorrelationFactor() << endl << endl;
 
   // not sure about this part d
   double eM_cov2;  
   for(int i=1; i< nevt; i++) {
     for(int j=1; i< nevt; i++) {
-      eM_cov2 += ((p[i]/sqrt(beta[i]*beta[i]/((1-beta[i])*(1-beta[i]))))-(p[j]/sqrt(beta[j]*beta[j]/((1-beta[j])*(1-beta[j])))))*(p[i]/beta[i]-p[j]/beta[j]);
+      eM_cov2 += ((p[i]*(1-beta[i])/beta[i]) - (p[j]*(1-beta[j])/beta[j])) * (p[i]/beta[i] - p[j]/beta[j]);
     }
   } 
 
   eM_cov2 /= 2*nevt*nevt;
 
   cout << "Part c)" << endl;
-  cout << "  covariance between m and E calculated with p and beta: " 
+  cout << "  covariance of m and E calculated with p and beta: " 
        << eM_cov2 << endl << endl;  
 
   c1->cd(1);
   hP->SetXTitle("p [MeV]");
   hP->SetYTitle("counts [/]");
-  hP->Draw();
+  hP->DrawCopy();
 
   c1->cd(2);
   hBeta->SetXTitle("Beta [/]");
   hBeta->SetYTitle("counts [/]");
-  hBeta->Draw();
+  hBeta->DrawCopy();
 
   c1->cd(3);
   hE->SetXTitle("E [MeV]");
   hE->SetYTitle("counts [/]");
-  hE->Draw();
+  hE->DrawCopy();
 
   c1->cd(4);
   hM->SetXTitle("m [MeV]");
   hM->SetYTitle("counts [/]");
-  hM->Draw();
+  hM->DrawCopy();
 
   c2->cd(1);
   hPBeta->SetXTitle("p [MeV]");
   hPBeta->SetYTitle("Beta [/]");
-  hPBeta->Draw("COLZ");
+  hPBeta->DrawCopy("COLZ");
 
   c2->cd(2);
   hPE->SetXTitle("p [MeV]");
   hPE->SetYTitle("E [MeV]");
-  hPE->Draw("COLZ");
+  hPE->DrawCopy("COLZ");
 
   c2->cd(3);
   hPM->SetXTitle("p [MeV]");
   hPM->SetYTitle("m [MeV]");
-  hPM->Draw("COLZ");
+  hPM->DrawCopy("COLZ");
 
   c2->cd(4);
   hBetaE->SetXTitle("Beta [/]");
   hBetaE->SetYTitle("E [MeV]");
-  hBetaE->Draw("COLZ");
+  hBetaE->DrawCopy("COLZ");
 
   c2->cd(5);
   hBetaM->SetXTitle("Beta [/]");
   hBetaM->SetYTitle("m [MeV]");
-  hBetaM->Draw("COLZ");
+  hBetaM->DrawCopy("COLZ");
 
   c2->cd(6);
   hEM->SetXTitle("E [MeV]");
   hEM->SetYTitle("m [MeV]");
-  hEM->Draw("COLZ");
-/*
+  hEM->DrawCopy("COLZ");
+
   //save as png
   gSystem->ProcessEvents();
   TImage *img1 = TImage::Create();
@@ -218,6 +257,17 @@ void exercise3_3() {
   TImage *img2 = TImage::Create();
   img2->FromPad(c2);
   img2->WriteImage("exercise3_3_2D.png");
-*/
+
+  hP->Delete();
+  hBeta->Delete();
+  hE->Delete();
+  hM->Delete();
+  hPBeta->Delete();
+  hPE->Delete();
+  hPM->Delete();
+  hBetaE->Delete();
+  hBetaM->Delete();
+  hEM->Delete();
+  
   return;
 }
