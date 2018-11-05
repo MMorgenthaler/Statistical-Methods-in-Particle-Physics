@@ -189,7 +189,7 @@ void exercise3_3() {
   double eM_cov2;  
   for(int i=1; i< nevt; i++) {
     for(int j=1; i< nevt; i++) {
-      eM_cov2 += ((p[i]*(1-beta[i])/beta[i]) - (p[j]*(1-beta[j])/beta[j])) * (p[i]/beta[i] - p[j]/beta[j]);
+      eM_cov2 += ((p[i]*sqrt(1-pow(beta[i],2))/beta[i]) - (p[j]*sqrt(1-pow(beta[j],2))/beta[j])) * (p[i]/beta[i] - p[j]/beta[j]);
     }
   } 
 

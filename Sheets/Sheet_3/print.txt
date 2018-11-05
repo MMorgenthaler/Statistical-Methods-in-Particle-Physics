@@ -1,0 +1,61 @@
+Part a)
+  mean of momentum p: 287 [MeV]
+  mean of momentum p (TH1): 286.983 [MeV]
+  variance of momentum p: 32.8049 [MeV²]
+  variance of momentum p (TH1): 32.4604 [MeV²]
+
+  mean of beta: 0.900031
+  mean of beta (TH1): 0.900029
+  variance of beta: 8.12056e-05
+  variance of beta (TH1): 8.03775e-05
+
+  mean of energy E: 318.91 [MeV]
+  mean of energy E (TH1): 318.915 [MeV]
+  variance of energy E: 50.5421 [MeV²]
+  variance of energy E (TH1): 50.2236 [MeV²]
+
+  mean of mass M: 138.891 [MeV]
+  mean of mass M (TH1): 138.918 [MeV]
+  variance of mass M: 61.4729 [MeV²]
+  variance of mass M (TH1): 60.3229 [MeV²]
+
+  covariance of p and beta: 0.000215732 [MeV]
+  covariance of p and beta (TH2): 0.000200664 [MeV]
+
+  covariance of p and E: 36.3769 [MeV²]
+  covariance of p and E (TH2): 35.8407 [MeV²]
+
+  covariance of p and m: 15.7058 [MeV²]
+  covariance of p and m (TH2): 15.3088 [MeV²]
+
+  covariance of beta and E: -0.0285381 [MeV]
+  covariance of beta and E (TH2): -0.0280675 [MeV]
+
+  covariance of beta and m: -0.0660658 [MeV]
+  covariance of beta and m (TH2): -0.0646498 [MeV]
+
+  covariance of E and m: 40.869 [MeV²]
+  covariance of E and m (TH2): 39.9839 [MeV²]
+
+Part b)
+  correlation of p and beta: 0.00417977
+  correlation of p and beta (TH2): 0.00392863
+
+  correlation of p and E: 0.893367
+  correlation of p and E (TH2): 0.892038
+
+  correlation of p and m: 0.349743
+  correlation of p and m (TH2): 0.346411
+
+  correlation of beta and E: -0.445456
+  correlation of beta and E (TH2): -0.442478
+
+  correlation of beta and m: -0.935066
+  correlation of beta and m (TH2): -0.933779
+
+  correlation of E and m: 0.733205
+  correlation of E and m (TH2): 0.729818
+
+Part c)
+  covariance of m and E calculated with p and beta: 0.000194544
+
