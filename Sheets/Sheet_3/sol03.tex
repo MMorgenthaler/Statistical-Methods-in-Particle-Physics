@@ -202,15 +202,15 @@ Please note that we will only include grahpics and solutions here but not the co
       \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
                        & \textbf{Code} & \textbf{ROOT} & \textbf{Code} & \textbf{ROOT} & \textbf{Code} & \textbf{ROOT} \\
       \midrule
-      $p$              & \num{287.0} & \num{0.0} & \num{32.81} & \num{0.0} & $-$       & $-$       \\
-      $E$              & \num{318.9} & \num{0.0} & \num{50.54} & \num{0.0} & $-$       & $-$       \\
-      $\beta$          & \num{0.900} & \num{0.0} & \num{0.001} & \num{0.0} & $-$       & $-$       \\
-      $m$              & \num{138.9} & \num{0.0} & \num{61.47} & \num{0.0} & $-$       & $-$       \\ \hline
-      $p \times E$     & $-$       & $-$       & $-$       & $-$       & \num{0.893} & \num{0.0} \\
-      $p \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{0.007} & \num{0.0} \\
-      $p \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.350} & \num{0.0} \\
-      $E \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{-0.100} & \num{0.0} \\
-      $E \times m$     & $-$       & $-$       & $-$       & $-$       & \num{0.733} & \num{0.0} \\
+      $p$              & \num{287.0} & \num{287.0} & \num{32.80} & \num{32.46} & $-$       & $-$       \\
+      $E$              & \num{318.9} & \num{318.9} & \num{50.54} & \num{50.22} & $-$       & $-$       \\
+      $\beta$          & \num{0.900} & \num{0.900} & \num{0.001} & \num{0.001} & $-$       & $-$       \\
+      $m$              & \num{138.9} & \num{138.9} & \num{61.47} & \num{60.32} & $-$       & $-$       \\ \hline
+      $p \times E$     & $-$       & $-$       & $-$       & $-$       & \num{36.38} & \num{35.84} \\
+      $p \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{0.001} & \num{0.001} \\
+      $p \times m$     & $-$       & $-$       & $-$       & $-$       & \num{15.71} & \num{15.31} \\
+      $E \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{-0.029} & \num{-0.028} \\
+      $E \times m$     & $-$       & $-$       & $-$       & $-$       & \num{40.87} & \num{39.98} \\
       $\beta \times m$ & $-$       & $-$       & $-$       & $-$       & \num{-0.215} & \num{0.0} \\
       \bottomrule
       \label{tab:ex_b_results}
@@ -229,12 +229,12 @@ Please note that we will only include grahpics and solutions here but not the co
       \cmidrule(lr){2-3}
        & \textbf{Code} & \textbf{ROOT} \\
       \midrule
-      $p \times E$     & \num{0.893}  & \num{0.0} \\
-      $p \times \beta$ & \num{0.007}  & \num{0.0} \\
-      $p \times m$     & \num{0.350}  & \num{0.0} \\
-      $E \times \beta$ & \num{-0.100} & \num{0.0} \\
-      $E \times m$     & \num{0.733}  & \num{0.0} \\
-      $\beta \times m$ & \num{-0.215} & \num{0.0} \\
+      $p \times E$     & \num{0.893}  & \num{0.892} \\
+      $p \times \beta$ & \num{0.004}  & \num{0.004} \\
+      $p \times m$     & \num{0.350}  & \num{0.346} \\
+      $E \times \beta$ & \num{-0.445} & \num{-0.442} \\
+      $E \times m$     & \num{0.733}  & \num{0.730} \\
+      $\beta \times m$ & \num{-0.935} & \num{0.934} \\
       \bottomrule
       \label{tab:ex_c_coefficients}
     \end{longtable}
@@ -264,7 +264,7 @@ Please note that we will only include grahpics and solutions here but not the co
    \begin{equation}
    \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n \left(\frac{p_i \cdot \sqrt{1- \beta_i^2}}{\beta_i} -  \frac{p_j \cdot \sqrt{1- \beta_j^2}}{\beta_j}\right) \cdot \left(\frac{p_i}{\beta_i} - \frac{p_j}{\beta_j} \right)
    \end{equation}
-   Using the values of part a results in $\textrm{cov}[m, E] = $.
+   Using the values of part a results in $\textrm{cov}[m, E] = 0.0002 $. This value is very close to $\textrm{cov}[p, \beta]$.
   
 
   \item[\textbf{e)}] \label{part_e}
@@ -280,7 +280,7 @@ Please note that we will only include grahpics and solutions here but not the co
            &= \sqrt{ \textrm{std}[E]^2 +\textrm{ std}[m]^2 - 2 \cdot \textrm{cov}[E, m]} \\
            &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2 \cdot \textrm{cov}[E, m]} 
    \end{align}
-  With the values from table \ref{tab:ex_b_results} we get an uncertainty of $u_T = ... MeV$. Without the correlation term the uncertainty would be         $u_T^* = 10.58 MeV$ so it makes a difference of $\Delta u_T = ... MeV$.
+  With the values from table \ref{tab:ex_b_results} we get an uncertainty of $u_T = 5.50 MeV$. Without the correlation term the uncertainty would be $u_T^* = 10.58 MeV$ so it makes a difference of $\Delta u_T = 5.08 MeV$.
    
 \end{itemize}
 
