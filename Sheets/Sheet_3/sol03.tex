@@ -265,7 +265,7 @@ Please note that we will only include grahpics and solutions here but not the co
    \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n \left(\frac{p_i \cdot \sqrt{1- \beta_i^2}}{\beta_i} -  \frac{p_j \cdot \sqrt{1- \beta_j^2}}{\beta_j}\right) \cdot \left(\frac{p_i}{\beta_i} - \frac{p_j}{\beta_j} \right)
    \end{equation}
    Using the values of part a results in $\textrm{cov}[m, E] = 0.0002 $. This value is very close to $\textrm{cov}[p, \beta]$.
-  
+
 
   \item[\textbf{e)}] \label{part_e}
     We are asked to calculate the uncertainity of $T = E - m$ taken the correlation between $E$ and $m$ into account. \\
@@ -273,15 +273,15 @@ Please note that we will only include grahpics and solutions here but not the co
    \begin{equation}
     u_y = \sqrt{\sum_{i=1}^m  \left(\frac{\delta y}{\delta x_i} \cdot u_i\right)^2 + 2 \sum_{i=1}^{m-1} \sum_{k=i+1}^{m}  \left(\frac{\delta y}{\delta x_i}\right)  \left(\frac{\delta y}{\delta x_k}\right) \cdot \textrm{cov}[x_i, x_k]}
    \end{equation}
-   
+
    For our formula it reduces to:
   \begin{align}
-    u_T &= \sqrt{ (u_E)^2 + (u_m)^2 - 2 \¢dot cov[E, m]} \\
+    u_T &= \sqrt{ (u_E)^2 + (u_m)^2 - 2 \cdot cov[E, m]} \\
            &= \sqrt{ \textrm{std}[E]^2 +\textrm{ std}[m]^2 - 2 \cdot \textrm{cov}[E, m]} \\
-           &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2 \cdot \textrm{cov}[E, m]} 
+           &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2 \cdot \textrm{cov}[E, m]}
    \end{align}
   With the values from table \ref{tab:ex_b_results} we get an uncertainty of $u_T = 5.50 MeV$. Without the correlation term the uncertainty would be $u_T^* = 10.58 MeV$ so it makes a difference of $\Delta u_T = 5.08 MeV$.
-   
+
 \end{itemize}
 
 \end{myfont}
