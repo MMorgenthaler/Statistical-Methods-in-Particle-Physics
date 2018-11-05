@@ -284,15 +284,15 @@ Please note that we will only include grahpics and solutions here but not the co
 
 \end{itemize}
 
-
 \noindent This is the output we recieve from the ROOT macro:
 
-\begin{lstlisting}[language=bash,caption={bash version}]
+{\setstretch{1.0}
+\begin{lstlisting}[language=bash,caption={Output of ROOT macro into terminal}]
 Part a)
   mean of momentum p: 287 [MeV]
   mean of momentum p (TH1): 286.983 [MeV]
-  variance of momentum p: 32.8049 [MeV²]
-  variance of momentum p (TH1): 32.4604 [MeV²]
+  variance of momentum p: 32.8049 [MeV2]
+  variance of momentum p (TH1): 32.4604 [MeV2]
 
   mean of beta: 0.900031
   mean of beta (TH1): 0.900029
@@ -301,22 +301,22 @@ Part a)
 
   mean of energy E: 318.91 [MeV]
   mean of energy E (TH1): 318.915 [MeV]
-  variance of energy E: 50.5421 [MeV²]
-  variance of energy E (TH1): 50.2236 [MeV²]
+  variance of energy E: 50.5421 [MeV2]
+  variance of energy E (TH1): 50.2236 [MeV2]
 
   mean of mass M: 138.891 [MeV]
   mean of mass M (TH1): 138.918 [MeV]
-  variance of mass M: 61.4729 [MeV²]
-  variance of mass M (TH1): 60.3229 [MeV²]
+  variance of mass M: 61.4729 [MeV2]
+  variance of mass M (TH1): 60.3229 [MeV2]
 
   covariance of p and beta: 0.000215732 [MeV]
   covariance of p and beta (TH2): 0.000200664 [MeV]
 
-  covariance of p and E: 36.3769 [MeV²]
-  covariance of p and E (TH2): 35.8407 [MeV²]
+  covariance of p and E: 36.3769 [MeV2]
+  covariance of p and E (TH2): 35.8407 [MeV2]
 
-  covariance of p and m: 15.7058 [MeV²]
-  covariance of p and m (TH2): 15.3088 [MeV²]
+  covariance of p and m: 15.7058 [MeV2]
+  covariance of p and m (TH2): 15.3088 [MeV2]
 
   covariance of beta and E: -0.0285381 [MeV]
   covariance of beta and E (TH2): -0.0280675 [MeV]
@@ -324,8 +324,8 @@ Part a)
   covariance of beta and m: -0.0660658 [MeV]
   covariance of beta and m (TH2): -0.0646498 [MeV]
 
-  covariance of E and m: 40.869 [MeV²]
-  covariance of E and m (TH2): 39.9839 [MeV²]
+  covariance of E and m: 40.869 [MeV2]
+  covariance of E and m (TH2): 39.9839 [MeV2]
 
 Part b)
   correlation of p and beta: 0.00417977
@@ -348,8 +348,7 @@ Part b)
 
 Part c)
 covariance of m and E calculated with p and beta: 0.000194544
-\end{lstlisting}
-
+\end{lstlisting}}
 
 \end{myfont}
 \end{document}
