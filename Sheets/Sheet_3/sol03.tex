@@ -211,7 +211,7 @@ Please note that we will only include grahpics and solutions here but not the co
       $p \times m$     & $-$       & $-$       & $-$       & $-$       & \num{15.71} & \num{15.31} \\
       $E \times \beta$ & $-$       & $-$       & $-$       & $-$       & \num{-0.029} & \num{-0.028} \\
       $E \times m$     & $-$       & $-$       & $-$       & $-$       & \num{40.87} & \num{39.98} \\
-      $\beta \times m$ & $-$       & $-$       & $-$       & $-$       & \num{-0.215} & \num{0.0} \\
+      $\beta \times m$ & $-$       & $-$       & $-$       & $-$       & \num{-0.066} & \num{-0.065} \\
       \bottomrule
       \label{tab:ex_b_results}
     \end{longtable}
@@ -234,7 +234,7 @@ Please note that we will only include grahpics and solutions here but not the co
       $p \times m$     & \num{0.350}  & \num{0.346} \\
       $E \times \beta$ & \num{-0.445} & \num{-0.442} \\
       $E \times m$     & \num{0.733}  & \num{0.730} \\
-      $\beta \times m$ & \num{-0.935} & \num{0.934} \\
+      $\beta \times m$ & \num{-0.935} & \num{-0.934} \\
       \bottomrule
       \label{tab:ex_c_coefficients}
     \end{longtable}
@@ -265,7 +265,7 @@ Please note that we will only include grahpics and solutions here but not the co
    \textrm{cov}[m, E] = \frac{1}{2n^2} \sum_{i=1}^n \sum_{j=1}^n \left(\frac{p_i \cdot \sqrt{1- \beta_i^2}}{\beta_i} -  \frac{p_j \cdot \sqrt{1- \beta_j^2}}{\beta_j}\right) \cdot \left(\frac{p_i}{\beta_i} - \frac{p_j}{\beta_j} \right)
    \end{equation}
    Using the values of part a results in $\textrm{cov}[m, E] = 0.0002 $. This value is very close to $\textrm{cov}[p, \beta]$.
-
+  
 
   \item[\textbf{e)}] \label{part_e}
     We are asked to calculate the uncertainity of $T = E - m$ taken the correlation between $E$ and $m$ into account. \\
@@ -273,82 +273,16 @@ Please note that we will only include grahpics and solutions here but not the co
    \begin{equation}
     u_y = \sqrt{\sum_{i=1}^m  \left(\frac{\delta y}{\delta x_i} \cdot u_i\right)^2 + 2 \sum_{i=1}^{m-1} \sum_{k=i+1}^{m}  \left(\frac{\delta y}{\delta x_i}\right)  \left(\frac{\delta y}{\delta x_k}\right) \cdot \textrm{cov}[x_i, x_k]}
    \end{equation}
-
+   
    For our formula it reduces to:
   \begin{align}
-    u_T &= \sqrt{ (u_E)^2 + (u_m)^2 - 2 \cdot cov[E, m]} \\
+    u_T &= \sqrt{ (u_E)^2 + (u_m)^2 - 2 \¢dot cov[E, m]} \\
            &= \sqrt{ \textrm{std}[E]^2 +\textrm{ std}[m]^2 - 2 \cdot \textrm{cov}[E, m]} \\
-           &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2 \cdot \textrm{cov}[E, m]}
+           &= \sqrt{\textrm{var}[E] + \textrm{var}[m] - 2 \cdot \textrm{cov}[E, m]} 
    \end{align}
   With the values from table \ref{tab:ex_b_results} we get an uncertainty of $u_T = 5.50 MeV$. Without the correlation term the uncertainty would be $u_T^* = 10.58 MeV$ so it makes a difference of $\Delta u_T = 5.08 MeV$.
-
+   
 \end{itemize}
-
-\noindent This is the output we recieve from the ROOT macro:
-
-{\setstretch{1.0}
-\begin{lstlisting}[language=bash,caption={Output of ROOT macro into terminal}]
-Part a)
-  mean of momentum p: 287 [MeV]
-  mean of momentum p (TH1): 286.983 [MeV]
-  variance of momentum p: 32.8049 [MeV2]
-  variance of momentum p (TH1): 32.4604 [MeV2]
-
-  mean of beta: 0.900031
-  mean of beta (TH1): 0.900029
-  variance of beta: 8.12056e-05
-  variance of beta (TH1): 8.03775e-05
-
-  mean of energy E: 318.91 [MeV]
-  mean of energy E (TH1): 318.915 [MeV]
-  variance of energy E: 50.5421 [MeV2]
-  variance of energy E (TH1): 50.2236 [MeV2]
-
-  mean of mass M: 138.891 [MeV]
-  mean of mass M (TH1): 138.918 [MeV]
-  variance of mass M: 61.4729 [MeV2]
-  variance of mass M (TH1): 60.3229 [MeV2]
-
-  covariance of p and beta: 0.000215732 [MeV]
-  covariance of p and beta (TH2): 0.000200664 [MeV]
-
-  covariance of p and E: 36.3769 [MeV2]
-  covariance of p and E (TH2): 35.8407 [MeV2]
-
-  covariance of p and m: 15.7058 [MeV2]
-  covariance of p and m (TH2): 15.3088 [MeV2]
-
-  covariance of beta and E: -0.0285381 [MeV]
-  covariance of beta and E (TH2): -0.0280675 [MeV]
-
-  covariance of beta and m: -0.0660658 [MeV]
-  covariance of beta and m (TH2): -0.0646498 [MeV]
-
-  covariance of E and m: 40.869 [MeV2]
-  covariance of E and m (TH2): 39.9839 [MeV2]
-
-Part b)
-  correlation of p and beta: 0.00417977
-  correlation of p and beta (TH2): 0.00392863
-
-  correlation of p and E: 0.893367
-  correlation of p and E (TH2): 0.892038
-
-  correlation of p and m: 0.349743
-  correlation of p and m (TH2): 0.346411
-
-  correlation of beta and E: -0.445456
-  correlation of beta and E (TH2): -0.442478
-
-  correlation of beta and m: -0.935066
-  correlation of beta and m (TH2): -0.933779
-
-  correlation of E and m: 0.733205
-  correlation of E and m (TH2): 0.729818
-
-Part c)
-covariance of m and E calculated with p and beta: 0.000194544
-\end{lstlisting}}
 
 \end{myfont}
 \end{document}
