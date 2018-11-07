@@ -6,7 +6,6 @@
 #import <iostream>
 #import <vector>
 
-
 std::vector<double> BBS(long p, long q, long seed, unsigned total){
 	long M = p*q;
 	std::vector<long> random;
@@ -21,13 +20,8 @@ std::vector<double> BBS(long p, long q, long seed, unsigned total){
 		random2.push_back(static_cast<double>(random.at(i) / static_cast<double>(M)));
 	}
 
-	
 	return random2;
 }
-
-
-
-
 
 void exercise4_1(){
 
@@ -39,19 +33,14 @@ void exercise4_1(){
 
 	std::vector<long> seeds;
 	std::vector<std::vector<double>> random_numbers;
+	std::vector<double> many = BBS(p, q, seed, total_numbers);
 
 	for(unsigned i = 0; i < total_seeds; i++){
 		seeds.push_back(seed + i);
-	}
-
-
-	for(unsigned i = 0; i < total_seeds; i++){
 		std::vector<double> result = BBS(p, q, seeds.at(i), total_seeds);
 		random_numbers.push_back(result);
 		std::cout << " --- Random number " << i << " \t is " << (random_numbers.at(i)).back() << std::endl;
 	}
-
-	std::vector<double> many = BBS(p, q, seed, total_numbers);
 	
 	TH1D * hist = new TH1D("Random number distributions", "Random number distributions", 200, 0, 1);
 	for(unsigned i = 0; i < total_numbers; i++){
@@ -66,9 +55,6 @@ void exercise4_1(){
 	TImage * image = TImage::Create();
 	image->FromPad(canvas);
 	image->WriteImage("canvas.png");
-
-
-
 
 	return;
 }
