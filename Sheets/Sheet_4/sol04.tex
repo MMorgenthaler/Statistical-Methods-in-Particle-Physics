@@ -40,6 +40,7 @@
 \usepackage{longtable}
 \usepackage{lscape}
 \usepackage{tocloft}
+\usepackage{tkz-euclide}
 \usepackage{listings}
 \usepackage{feynmp-auto} % Create fenynman diagrams
 \usepackage{tikz-feynman} % Create fenynman diagrams
@@ -97,6 +98,7 @@
 
 % Decalre uits for SIunitx
 \DeclareSIUnit\femtobarn{fb^{-1}}
+\DeclareSIUnit\percent{\%}
 
 % Define colors
 \definecolor{deepblue}{rgb}{0,0,0.5}
@@ -141,7 +143,7 @@ $p$ and $q$ are large prime numbers. \\
 To generate numbers between zero and one one has to divide by $p \cdot q$.
 
 \begin{equation}
-r_{i} = \frac{n_{i}}{p /cdot q}
+r_{i} = \frac{n_{i}}{M}
 \end{equation}
 
 \noindent Please find the code in file \texttt{exercise4\_1.C}.
@@ -192,6 +194,71 @@ We filled a histogram with them which you can see in figure \ref{fig:ex_1_result
   \includegraphics[width = \textwidth]{./canvas.png}
   \label{fig:ex_1_results}
 \end{figure}
+
+
+\section*{Exercise 4.2}
+
+
+
+
+
+\section*{Exercise 4.3}
+
+
+
+
+\section*{Exercise 4.4}
+
+\begin{itemize}
+  \item[\textbf{a)}] We are asked to analytically calulcate the percentage of photons hitting our detector assuming an isotropic distribution of particles. \\
+  The percentage is the ratio of the surface of the detector divided by the surface of a three dimensional sphere, i.e.
+
+  \begin{equation}
+    p = \frac{O_{\textrm{segment}}}{O_{\textrm{sphere}}} = \frac{\pi a^{2}}{4\pi r^{2}} = \left(\frac{a}{2r}\right)^{2}.
+    \label{eq:probability}
+  \end{equation}
+
+  \noindent To be able to find $p$ we need to find $r$ as $a$ is already given.
+  To solve this please have a look at figure \ref{fig:ex_4_circle}.
+  From this you can see that 
+  $$
+    (r -h)^{2} + a^{2} = r^{2}.
+  $$
+
+  \begin{figure}[H]
+    \centering
+    \caption{This figure illustrates the setup of the detector and the projection of the two dimensional surface of the sphere.
+    We consider the red triangle to obtain the radius $r$ as only $r-h$ is given in the exercise.}
+    \begin{tikzpicture}
+      \draw[black, thick, domain=0:180] plot ({2.84*cos(\x)}, {2.84*sin(\x)});
+      \draw (-2,2) -- (2, 2);
+      \draw (0, 2) -- (0, 2.84);
+      \draw (0, 0) -- (2, 2);
+      \draw[dashed] (-2.84, 0) -- (2.84, 0);
+
+      \draw[red, thin] (0, 0) -- (2, 2);
+      \draw[red, thin] (2, 2) -- (0, 2.0);
+      \draw[red, thin] (0, 2.0) -- (0, 0);
+
+      \node[text width = 1cm] at (1.5, 0.85) {$r$};
+      \node[text width = 1cm] at (1.3, 1.8) {$a$};
+      \node[text width = 1cm] at (0.55, 2.45) {$h$};
+    \end{tikzpicture}
+    \label{fig:ex_4_circle}
+    \end{figure}
+
+    \noindent Inserting this in equation \ref{eq:probability} yields
+
+    \begin{equation}
+      p = \frac{a}{2 \sqrt{a^{2} + (r - h)^{2}}}.
+    \end{equation} 
+
+    \noindent Inserting $a =$ \SI{0.02}{\metre} and $r - h =$ \SI{0.1}{\metre} yields $p \approx$ \num{0.00962} $\approx$ \SI{0.962}{\percent}.
+
+  \item[\textbf{b)}] Please find the code in the file \texttt{exercise4\_4.C}.
+
+\end{itemize}
+
 
 \end{myfont}
 \end{document}
