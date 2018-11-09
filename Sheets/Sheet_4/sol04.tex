@@ -143,7 +143,7 @@ $p$ and $q$ are large prime numbers. \\
 To generate numbers between zero and one one has to divide by $p \cdot q$.
 
 \begin{equation}
-r_{i} = \frac{n_{i}}{M}
+r_{i} = \frac{n_{i}}{p \cdot q}
 \end{equation}
 
 \noindent Please find the code in file \texttt{exercise4\_1.C}.
@@ -198,12 +198,33 @@ We filled a histogram with them which you can see in figure \ref{fig:ex_1_result
 
 \section*{Exercise 4.2}
 
+We are asked to generate random numbers according to a specific PDF, in this case an exponential function $f(x) = e^{x}$.
+In figure \ref{fig:exponential} the output of our implementation as well as the ROOT function is given. \\
+As you can see there is no significant difference between both functions.
 
-
+\begin{figure}[H]
+  \centering
+  \caption{Comparison between our own implementation and the equivalent ROOT function for \num{10000} random variables.
+  You can see no significant difference between both functions.}
+  \includegraphics[width = \textwidth]{./exercise4_2.png}
+  \label{fig:exponential}
+\end{figure}
 
 
 \section*{Exercise 4.3}
 
+We are asked to numerically verify the \textit{central limit theorem}. 
+To do this we use the exponential function and compute \num{10000} averages of of $k$ random numbers.
+The result can be found in figure \ref{fig:clt}. \\
+You can see that increasing the total number of random numbers indeed leads to shape similar to that of a normal distribution.
+
+\begin{figure}[H]
+  \centering
+  \caption{Comparison between three exponential distributions with $k$ random numbers using \num{10000} averages.
+  You can see the distribution tends towards a normal distribution with an increasing number of random variables $k$.}
+  \includegraphics[width = \textwidth]{./exercise4_3.png}
+  \label{fig:clt}
+\end{figure}
 
 
 
