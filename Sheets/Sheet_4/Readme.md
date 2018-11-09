@@ -1,7 +1,8 @@
 To be added:
 
 - Code:
-  > Exercises 2 and 3
+  > -
 - TeX:
-  > Exercises 2 and 3
-  > Additional information in exercise 1
+  > Include exercise 2, 3
+- Calc:
+  > 4.4a
