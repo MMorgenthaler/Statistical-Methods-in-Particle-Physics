@@ -15,7 +15,7 @@ Double_t LogLikelihood_betafixed(Double_t *val, Double_t *par) {
 	
 	double lL = 0; 
 	for (int i=0; i<Ndata; i++) {
-		lL += (1/TMath::Pi()) * beta / (pow((par[i]-alpha),2) + pow(beta, 2));
+		lL += log((1/TMath::Pi()) * beta / (pow((par[i]-alpha),2) + pow(beta, 2)));
 	}
 	return lL;
 };
@@ -27,7 +27,7 @@ Double_t LogLikelihood(Double_t *val, Double_t *par) {
 	
 	double lL = 0; 
 	for (int i=0; i<Ndata; i++) {
-		lL += (1/TMath::Pi()) * beta / (pow((par[i]-alpha),2) + pow(beta, 2));
+		lL += log((1/TMath::Pi()) * beta / (pow((par[i]-alpha),2) + pow(beta, 2)));
 	}
 	return lL;
 };
@@ -59,6 +59,8 @@ void exercise5_1() {
 	c1->cd(1);
 	logLikelihood_betafixed->Draw();
 	alpha_est_1 = logLikelihood_betafixed->GetMaximumX();
+   logLikelihood_betafixed->GetHistogram()->GetXaxis()->SetTitle("alpha");
+   c1->Modified();
 	cout << "part a)" << endl;
 	cout << "  estimated alpha: " << alpha_est_1 << endl << endl;
 	
@@ -66,6 +68,8 @@ void exercise5_1() {
 	logLikelihood->Draw("SURF2");
 	//logLikelihood->Draw("CONT1 SAME");
 	logLikelihood->GetMaximumXY(alpha_est_2, beta_est);
+	logLikelihood->GetHistogram()->GetXaxis()->SetTitle("alpha");
+	logLikelihood->GetHistogram()->GetYaxis()->SetTitle("beta");
 	cout << "part b)" << endl;
 	cout << "  estimated alpha: " << alpha_est_2 << endl;
 	cout << "  estimated beta: " << beta_est << endl;
