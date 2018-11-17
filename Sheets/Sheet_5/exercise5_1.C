@@ -59,8 +59,8 @@ void exercise5_1() {
 	c1->cd(1);
 	logLikelihood_betafixed->Draw();
 	alpha_est_1 = logLikelihood_betafixed->GetMaximumX();
-   logLikelihood_betafixed->GetHistogram()->GetXaxis()->SetTitle("alpha");
-   c1->Modified();
+        logLikelihood_betafixed->GetHistogram()->GetXaxis()->SetTitle("alpha");
+        c1->Modified();
 	cout << "part a)" << endl;
 	cout << "  estimated alpha: " << alpha_est_1 << endl << endl;
 	
@@ -79,5 +79,4 @@ void exercise5_1() {
 	TImage *img1 = TImage::Create();
 	img1->FromPad(c1);
 	img1->WriteImage("exercise5_1.png");
-	
 }
