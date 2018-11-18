@@ -144,8 +144,8 @@ static void Plotting(std::vector<double> fixed, std::vector<double> unfixed){
 
 	// Save figure
 	TImage * img = TImage::Create();
-  img->FromPad(canvas);
-  img->WriteImage("exercise5_2.png");
+        img->FromPad(canvas);
+        img->WriteImage("exercise5_2.png");
 
 	return;
 }
@@ -153,6 +153,6 @@ static void Plotting(std::vector<double> fixed, std::vector<double> unfixed){
 // Main function
 void exercise5_2(){
 	Plotting(fixed(), unfixed());
-  exit(1);
+        exit(1);
 	return;
 }
