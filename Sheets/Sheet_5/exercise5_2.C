@@ -103,7 +103,7 @@ double Gaussian(double * x, double * param){
 	// param[1] = mu
 	// param[2] = sig
 
-	double f = param[0] / (param[2] * TMath::Sqrt(2 * TMath::Pi())) * TMath::Exp(- TMath::Power(x[0] - param[1], 2) / (2 * TMath::Power(param[2], 2)));	
+	double f = param[0] * TMath::Exp(- TMath::Power(x[0] - param[1], 2) / (2 * TMath::Power(param[2], 2)));	
 	return f;
 }
 
@@ -144,8 +144,8 @@ static void Plotting(std::vector<double> fixed, std::vector<double> unfixed){
 
 	// Save figure
 	TImage * img = TImage::Create();
-        img->FromPad(canvas);
-        img->WriteImage("exercise5_2.png");
+  img->FromPad(canvas);
+  img->WriteImage("exercise5_2.png");
 
 	return;
 }
@@ -153,6 +153,6 @@ static void Plotting(std::vector<double> fixed, std::vector<double> unfixed){
 // Main function
 void exercise5_2(){
 	Plotting(fixed(), unfixed());
-        exit(1);
+  exit(1);
 	return;
 }
