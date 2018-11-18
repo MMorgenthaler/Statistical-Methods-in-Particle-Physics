@@ -6,6 +6,7 @@
 #include "TMath.h"
 #include "TF1.h"
 #include "TImage.h"
+#include "TLegend.h"
 
 #include <iostream>
 #include <vector>
@@ -19,7 +20,8 @@ double NLL_fixed(double * x, double * param){
 	for(unsigned i = 0; i < numDataPoints; i++){
 		l -= TMath::Log(2 * TMath::Pi() * TMath::Power(sig, 2)) + (TMath::Power(x[i] - mu, 2) / (2 * TMath::Power(sig, 2)));
 	}
-	return l;
+	// minus sign because of NLL
+	return -l;
 }
 
 void fcn_fixed(int & npar, double * gin, double & f, double * par, int iflag){
@@ -33,7 +35,7 @@ static std::vector<double> fixed(){
 	minuit.SetErrorDef(0.5);
 	minuit.DefineParameter(0, "mu", 40.0, 0.001, 38, 42);
 	minuit.Migrad();
-	//minuit.Print();
+	minuit.Print();
 	
 	double mu_fit, mu_fit_error;
 	minuit.GetParameter(0, mu_fit, mu_fit_error);
@@ -59,7 +61,8 @@ double NLL_unfixed(double * x, double * param){
 	for(unsigned i = 0; i < numDataPoints; i++){
 		l -= TMath::Log(2 * TMath::Pi() * TMath::Power(sig, 2)) + (TMath::Power(x[i] - mu, 2) / (2 * TMath::Power(sig, 2)));
 	}
-	return l;
+	// minus sign because of NLL
+	return -l;
 }
 
 void fcn_unfixed(int & npar, double * gin, double & f, double * par, int iflag){
@@ -74,14 +77,14 @@ static std::vector<double> unfixed(){
 	minuit.DefineParameter(0, "mu", 40.0, 0.001, 38, 42);
 	minuit.DefineParameter(1, "sig", 0.2, 0.001, 0.0, 0.4);
 	minuit.Migrad();
-	//minuit.Print();
+	minuit.Print();
 	
 	double mu_fit, mu_fit_error, sig_fit, sig_fit_error;
 	minuit.GetParameter(0, mu_fit, mu_fit_error);
 	minuit.GetParameter(1, sig_fit, sig_fit_error);
 
 	std::cout << "----------" << std::endl;
-	std::cout << std::endl << "Beta fixed" << std::endl;
+	std::cout << std::endl << "Beta unfixed" << std::endl;
 	std::cout << "Mu = "  << mu_fit << std::endl;
 	std::cout << "Sig = " << sig_fit << std::endl << std::endl;
 
@@ -96,8 +99,11 @@ static std::vector<double> unfixed(){
 
 // Definition of gaussian function
 double Gaussian(double * x, double * param){
-	double A = 1.0;
-	double f = A / (2 * TMath::Pi() * TMath::Power(param[1], 2)) * TMath::Exp(- TMath::Power(x[0] - param[0], 2) / (2 * TMath::Power(param[1], 2)));
+	// param[0] = A
+	// param[1] = mu
+	// param[2] = sig
+
+	double f = param[0] / (param[2] * TMath::Sqrt(2 * TMath::Pi())) * TMath::Exp(- TMath::Power(x[0] - param[1], 2) / (2 * TMath::Power(param[2], 2)));	
 	return f;
 }
 
@@ -118,19 +124,28 @@ static void Plotting(std::vector<double> fixed, std::vector<double> unfixed){
 
 	// Draw gaussian with fixed sigma
 	double sig = 0.15;
-	TF1 * function_fixed = new TF1("f", Gaussian, 39, 41, 2);
-	function_fixed->SetParameters(fixed.at(0), sig);
+	TF1 * function_fixed = new TF1("f", Gaussian, 39, 41, 3);
+	function_fixed->SetParameters(hist->GetMaximum(), fixed.at(0), sig);
+	function_fixed->SetLineColor(1);
 	function_fixed->Draw("same");
 
-	//Draw gaussian with variable sigma
-	TF1 * function_unfixed = new TF1("f", Gaussian, 39, 41, 2);
-	function_unfixed->SetParameters(unfixed.at(0), unfixed.at(2));
+	// Draw gaussian with variable sigma
+	TF1 * function_unfixed = new TF1("f", Gaussian, 39, 41, 3);
+	function_unfixed->SetParameters(hist->GetMaximum(), unfixed.at(0), unfixed.at(2));
 	function_unfixed->Draw("same");
+
+	// Draw legend
+	TLegend * legend = new TLegend(0.11, 0.75, 0.39, 0.9);
+	legend->SetHeader("Legend", "C");
+	legend->AddEntry(hist, "Distribution of data", "f");
+	legend->AddEntry(function_fixed, "Fixed #beta", "l");
+	legend->AddEntry(function_unfixed, "Unixed #beta", "l");
+	legend->Draw("same");
 
 	// Save figure
 	TImage * img = TImage::Create();
-  	img->FromPad(canvas);
-  	img->WriteImage("exercise5_2.png");
+  img->FromPad(canvas);
+  img->WriteImage("exercise5_2.png");
 
 	return;
 }
@@ -138,6 +153,6 @@ static void Plotting(std::vector<double> fixed, std::vector<double> unfixed){
 // Main function
 void exercise5_2(){
 	Plotting(fixed(), unfixed());
-  	exit(1);
+  exit(1);
 	return;
 }
