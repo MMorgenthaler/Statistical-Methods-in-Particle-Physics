@@ -144,7 +144,20 @@
 
 \section*{Exercise 5.2}
 
-After importing the dataset we plotted it to confirm that we indeed have a gaussian distribution.
+After importing the dataset we plotted it to confirm that we indeed have a gaussian distribution
+
+\begin{equation}
+p(x;\mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{\left(x - \mu\right)^{2}}{2\sigma^{2}}}.
+\end{equation}
+
+\noindent The negative loglikelihood function then looks like
+
+\begin{align*}
+l(\mu, \sigma; x) & = \textrm{ln}\left(\prod_{i = 1}^{n}p(x_{i}; \mu, \sigma)\right) \\
+                  & = \sum_{i = 1}^{n} \left(-\textrm{ln}\left(\sigma\sqrt{2\pi}\right) - \frac{\left(x - \mu\right)^{2}}{2\sigma^{2}}\right) \\
+                  & = - \sum_{i = 1}^{n} \left(\textrm{ln}\left(\sigma\sqrt{2\pi}\right) + \frac{\left(x - \mu\right)^{2}}{2\sigma^{2}}\right)
+\end{align*}
+
 The resulting plot is illustrated in figure \ref{fig:gaussian_distribution}.
 The output by the fit is given in tabke \ref{tab:ex5_2}.
 
