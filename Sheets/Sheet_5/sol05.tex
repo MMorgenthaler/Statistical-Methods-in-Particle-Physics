@@ -131,15 +131,45 @@
 
 \section*{Exercise 5.1}
 
-\begin{itemize}
-  \item[\textbf{a)}] We are asked to find the position $\alpha$ for a given distance $\beta =$ \num{30}.
-  To do this we maximize a likelihood function based on the probability $p(x;\alpha, \beta)$ which is given as
 
-  \begin{equation}
-    p(x; \alpha, \beta) = \prod_{i = 1}^{n} 
-  \end{equation}
-\end{itemize}
+We are asked to find the position $\alpha$ for a given distance $\beta =$ \num{30}.
+To do this we maximize a likelihood function based on the probability $p(x;\alpha, \beta)$ which is given as
 
+\begin{equation}
+  p(x; \alpha, \beta) = \frac{\beta}{\pi \cdot\left(\left(x - \alpha\right)^{2} + \beta^{2}\right)}.
+\end{equation}
+
+\noindent Theerefore,
+
+\begin{align*}
+  l(\alpha, \beta; x) & = \textrm{ln}\left(\prod_{i = 1}^{n}\frac{\beta}{\pi \cdot\left(\left(x_{i} - \alpha\right)^{2} + \beta^{2}\right)}\right) \\
+                      & = \sum_{i = 1}^{n}\left(\textrm{ln}\left(\frac{\beta}{\pi \cdot\left(\left(x_{i} - \alpha\right)^{2} + \beta^{2}\right)}\right)\right).
+\end{align*}
+
+\noindent Please find the results of the maximisation in table \ref{tab:ex5_1}.
+The graphical visualisation can be found in figure \ref{fig:ex5_1}.
+
+\begin{figure}[H]
+  \centering
+  \caption{\textit{Top}: Distribution of $\alpha$ for fixed $\beta$. \\
+  \textit{Bottom}: Three dimensional graphic showind the loglikelihood value for given $\alpha$ in range between \num{5} and \num{15} and $\beta$ in range between \num{25} and \num{34}.}
+  \includegraphics[width = 0.8\textwidth]{./exercise5_1.png}
+  \label{fig:ex5_1}
+\end{figure}
+
+\begin{longtable}{*{3}l}
+\caption{Summary of parameters $\alpha$ and $\beta$.}\endfirsthead
+\endhead
+\toprule
+\textbf{Parameter} & \multicolumn{2}{c}{\textbf{Value}} \\
+\cmidrule{2-3}
+ & \textbf{fixed $\beta$} & \textbf{variable $\beta$} \\
+\midrule
+$\alpha$    & \num{11.017}   & \num{11.056} \\ 
+$\beta$     & \num{30}       & \num{28.844} \\
+\bottomrule
+\label{tab:ex5_1}
+\end{longtable}
 
 
 \section*{Exercise 5.2}
@@ -155,27 +185,27 @@ p(x;\mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{\left(x - \mu\right)^{2
 \begin{align*}
 l(\mu, \sigma; x) & = \textrm{ln}\left(\prod_{i = 1}^{n}p(x_{i}; \mu, \sigma)\right) \\
                   & = \sum_{i = 1}^{n} \left(-\textrm{ln}\left(\sigma\sqrt{2\pi}\right) - \frac{\left(x - \mu\right)^{2}}{2\sigma^{2}}\right) \\
-                  & = - \sum_{i = 1}^{n} \left(\textrm{ln}\left(\sigma\sqrt{2\pi}\right) + \frac{\left(x - \mu\right)^{2}}{2\sigma^{2}}\right)
+                  & = - \sum_{i = 1}^{n} \left(\textrm{ln}\left(\sigma\sqrt{2\pi}\right) + \frac{\left(x - \mu\right)^{2}}{2\sigma^{2}}\right).
 \end{align*}
 
 The resulting plot is illustrated in figure \ref{fig:gaussian_distribution}.
-The output by the fit is given in tabke \ref{tab:ex5_2}.
+The output by the fit is given in table \ref{tab:ex5_2}.
 
 \begin{figure}[H]
   \centering
   \caption{Distribution of data points given in the file 'data$\_$05.h'.
   The distribution of points seem to follow a gaussian distribution.}
-  \includegraphics[width = \textwidth]{./exercise5_2.png}
+  \includegraphics[width = 0.8\textwidth]{./exercise5_2.png}
   \label{fig:gaussian_distribution}
 \end{figure}
 
 \begin{longtable}{*{3}l}
-\caption{Summary of all fitted parameters.}\endfirsthead
+\caption{Summary of parameters $\mu$ and $\sigma$ found while fitting.}\endfirsthead
 \endhead
 \toprule
 \textbf{Parameter} & \multicolumn{2}{c}{\textbf{Value}} \\
 \cmidrule{2-3}
- & \textbf{fixed $\sigma$} & \textbf{unfixed $\sigma$} \\
+ & \textbf{fixed $\sigma$} & \textbf{variable $\sigma$} \\
 \midrule
 $\mu$    & \num{39.916} & \num{39.916} \\ 
 $\sigma$ & \num{0.15}   & \num{0.089}  \\

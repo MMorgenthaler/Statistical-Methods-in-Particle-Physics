@@ -99,9 +99,9 @@ static std::vector<double> unfixed(){
 
 // Definition of gaussian function
 double Gaussian(double * x, double * param){
-	// param[0] = A
-	// param[1] = mu
-	// param[2] = sig
+	// param[0] = Amplitude
+	// param[1] = Mean
+	// param[2] = Standard deviation
 
 	double f = param[0] * TMath::Exp(- TMath::Power(x[0] - param[1], 2) / (2 * TMath::Power(param[2], 2)));	
 	return f;
@@ -109,7 +109,7 @@ double Gaussian(double * x, double * param){
 
 // Function Plotting the results
 static void Plotting(std::vector<double> fixed, std::vector<double> unfixed){
-	TH1D * hist = new TH1D("hist", "hist", 40, 39.5, 40.3);
+	TH1D * hist = new TH1D("hist", "hist", 20, 39.5, 40.3);
 	TCanvas * canvas = new TCanvas("canvas", "canvas", 10, 10, 900, 600);
 
 	// Draw Histogram
