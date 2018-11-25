@@ -131,13 +131,28 @@
 
 \section*{Exercise 6.1}
 
-We are given the extended likelihood function $\mathcal{L}$ for the unbinned case, i.e.
+We are asked to derive the extenden likelihood function for the binned case. \\
+
+\noindent We start by looking at the content in each bin, i.e.
 
 \begin{equation}
-\mathcal{L}\left(\{x\}, n \,|\, \theta, \nu\right) = \frac{\nu^{n}}{n\,!} \prod_{i = 1}^{n} f(x_{i} \,|\, \theta).
+n_{b}(\theta) = n_{\textrm{tot}} \int\limits_{x_{0} + h(b-1)}^{x_{0} + hb} \textrm{d}x \,\cdot\, f(x \,|\, \theta)
 \end{equation}
 
-\noindent We are asked to derive the extenden likelihood function for the binned case.
+\noindent where $h$ is the width of the bin and $b$ the bin number. \\
+For a Poissonian distribtion we then get
+
+\begin{equation}
+f(m, n(\theta)) = \frac{n_{tot}^{m}e^{-n_{tot}}}{m_{tot}!} \cdot \frac{m_{tot}!}{m_{1}!\,...\, m_{N}!} \left(\frac{n_{1}}{n_{tot}}\right)^{m_{1}} \,...\, \left(\frac{n_{N}}{n_{tot}}\right)^{m_{N}} = \prod_{i = 1}^{N}\frac{n_{i}^{m_{i}}}{m_{i}!}e^{-n_{i}}
+\end{equation}
+
+\noindent Therefore
+
+\begin{equation}
+\mathcal{L} = \textrm{ln}\left(f(m, n(\theta)\right) = m_{i}\cdot \textrm{ln} \left(n_{i}\right) - \textrm{ln}\left(m_{i}\,!\right) - n_{i} \approx m_{i} \,\cdot\, \left(\textrm{ln}(n_{i}) - \textrm{ln}(m_{i})\right) - (m_{i} + n_{i})
+\end{equation}
+
+\noindent where I used Stirling's formula.
 
 
 \section*{Exercise 6.2}
@@ -156,8 +171,12 @@ Afterwards we should repeat this process for the binned case with $\Delta t =$ \
 \nu_{i}(\tau) = n_{\textrm{tot}} \int\limits_{t_{i}^{\textrm{min}}}^{t_{i}^{\textrm{max}}} \textrm{d}t \cdot f(t\, | \, \tau).
 \end{equation}
 
-\noindent Eventually we shall use different binning values and see what happens if $\Delta t \rightarrow $ \num{0} and $\Delta t \rightarrow \infty$.
+\noindent Eventually we shall use different binning values and see what happens if $\Delta t \rightarrow $ \num{0} and $\Delta t \rightarrow \infty$. \\
 
+\noindent Since we generated the random data with $\tau_{\textrm{true}} =$ \num{1.0} we expect to find a value close to \num{1.0} when fitting.
+The result we get from Minuit after fitting the data for the unbinned case is $\tau_{\textrm{fit}}^{\textrm{ubin}}$ \num{1.069}. \\
+
+\noindent For the binned case with $\Delta t =$ \SI{0.5}{\second} we get a value of $\tau_{fit}^{bin} =$ \num{1}, however we suspect that our result is wrong as we get the same value for $\Delta t \rightarrow \infty$ and obtain for $\Delta t \rightarrow$ \num{0} \texttt{nan}.
 
 \end{myfont}
 \end{document}
