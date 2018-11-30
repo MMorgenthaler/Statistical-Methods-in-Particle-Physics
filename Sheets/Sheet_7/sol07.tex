@@ -158,7 +158,32 @@ Afterwards we shall construct a theoretical model for the motion of electrons un
 Using this model we have to fit it to the given data using a self-written $\chi^{2}$ model.
 After plotting different values we eventually state a potential isotope from which the electrons come from. \\
 
-\noindent As usual, please find the script in the text file \texttt{exercise7\_2.C}.
+\noindent As usual, please find the script in the text file \texttt{exercise7\_2.C}. \\
+You can find the visualisation of the tracks of the first five electrons in figure \ref{fig:ex7_2_tracks}.
+
+\begin{figure}[h]
+  \centering
+  \caption{Movement of the first five tracks from the file \texttt{exercise07.root}.
+  Please not that the \textit{x} and \textit{z} positions are switched to enable fitting.}
+  \includegraphics[width = 0.8\textwidth]{./tracks.png}
+  \label{fig:ex7_2_tracks}
+\end{figure}
+
+\noindent The model to consider here gives rise to the following equation
+
+\begin{equation}
+  q\cdot \vec{v} \times \vec{B} = \vec{p}\cdot \vec{v} \cdot \frac{\vec{r}}{r}.
+\end{equation}
+
+\noindent Since we assume that the magnetic field is only pointing perpendicular to the motion of particles, we can simplify the equation.
+Switching back to cartesian coordinates yields
+
+\begin{align}
+x  & = - \frac{p_{z}}{|q| \cdot |B|} \cdot \textrm{cos}\left(\frac{|q||B|}{m_{e}}\right), \\
+y  & = + \frac{p_{z}}{|q| \cdot |B|} \cdot \textrm{sin}\left(\frac{|q||B|}{m_{e}}\right),
+\end{align}
+
+\noindent where $x^{2} + y^{2} = \left(\frac{p_{z}}{|q| \cdot |B|}\right)^{2}$ and therefore $y = \sqrt{\left(\frac{p_{z}}{|q| \cdot |B|}\right)^{2} - x^{2}}$. \\
 
 
 \end{myfont}
