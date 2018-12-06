@@ -45,7 +45,6 @@
 \usepackage{feynmp-auto} % Create fenynman diagrams
 \usepackage{tikz-feynman} % Create fenynman diagrams
 \usepackage{lipsum} % For testing. insert random text
-\usepackage{ amssymb }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% new commands and environments %%%
@@ -107,7 +106,7 @@
 \definecolor{deepgreen}{rgb}{0,0.6,0.2}
 \definecolor{deeporange}{rgb}{0.9,0.2,0}
 
-% Further new QoL commands
+% Commands for further use
 \newcommand{\testStat}{\tilde{q}_{\mu}}
 \newcommand{\lL}[2]{\mathcal{L}\left(#1 \middle|#2 \right)}
 
@@ -149,13 +148,18 @@ Given a note on the possibility of combining results from ATLAS and CMS we have 
 
   \item How is the test statistic constructed?
 
-  \noindent 
-  The test statistic $\testStat$ was constructed as 
+  \noindent The test statistic $\testStat$ was constructed as 
   
   \begin{equation}
-      \testStat = -2 ln \frac{\lL{data}{\mu,\hat{\Theta}_\mu}}{\lL{data}{\hat{\mu},\hat{\Theta}}}, with 0 \leq \hat{\mu} \leq \mu
+      \testStat = -2 \cdot \textrm{ln} \left(\frac{\mathcal{L}\left(\textrm{data}|\mu, \hat{\theta}_{\mu}\right)}{\mathcal{L}\left(\textrm{data}|\hat{\mu}, \hat{\theta}\right)}\right), \quad \textrm{with} \quad 0 \leq \hat{\mu} \leq \mu.
   \end{equation}
-  $\mathcal{L}$ is as always the Likelihood and data refers to real observations or toy datasets. $\mu$ is a \textit{signal strength modifier} which is applied to the SM Higgs boson cross sections. A hat over the variable signals them the be likelihood estimators. Therefore $\hat{\Theta}_{\mu}$ is the estimator given $\mu$. The pair $\hat{\mu}$ and $\hat{\theta}$ are together the global maximum of the Likelihood function. $\hat{\mu}$ has to be bigger than zero as the signal is positive. 
+	
+	\noindent $\mathcal{L}$ is as always the Likelihood and data refers to real observations or toy datasets. 
+	$\mu$ is a \textit{signal strength modifier} which is applied to the SM Higgs boson cross sections. 
+	A hat over the variable signals them the be likelihood estimators. 
+	Therefore $\hat{\Theta}_{\mu}$ is the estimator given $\mu$. 
+	The pair $\hat{\mu}$ and $\hat{\theta}$ are together the global maximum of the Likelihood function. 
+	$\hat{\mu}$ has to be bigger than zero as the signal is positive. 
 
   \item How is the p-value converted to the significance?
 
