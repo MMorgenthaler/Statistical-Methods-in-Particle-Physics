@@ -24,6 +24,7 @@
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{listings}
+\usepackage{enumitem}
 \usepackage{pgfplots}
 \usepackage{natbib}
 \usepackage{xcolor}
@@ -137,14 +138,22 @@
 
 Given a note on the possibility of combining results from ATLAS and CMS we have to answer the following ten questions:
 
-\begin{enumerate}
+\begin{enumerate}[label = \textbf{\roman*}.]
   \item How is the CL$_{\textrm{s}}$ method used for the search of the Higgs boson?
 
-  \noindent Put very nice answer here.
+  \noindent The CL$_{s}$ is used to calculate a confidence level by which the Higgs boson is excluded or included.
+  Here CL$_{s}$ is defined as
+
+  \begin{equation}
+  	\textrm{CL}_{s}(\mu) = \frac{p_{\mu}}{1 - p_{b}},	
+  \end{equation}
+
+  \noindent where $p_{\mu}$ is the p-value for the \textit{signal + background} hypothesis and $p_{b}$ the p-value for the \textit{background - only} hypothesis.
+  As an example, if $\mu = 1.0$ and CL$_{s} \leq \alpha$ we would exclude the Higgs boson with a $(1 - \alpha) \cdot \textrm{CL}_{s}$ confidence level.
 
   \item What is the shape of a hypothetical Higgs boson signal?
 
-  \noindent Put very nice answer here.
+  \noindent In the paper a simple model with a Gaussian-shaped signal and flat background was considered to estimate that $1\sigma_{m}$ increments leads to a loss of sensitivity of \SI{5}{\percent}. % Also used later on for signal?
 
   \item How is the test statistic constructed?
 
@@ -163,23 +172,69 @@ Given a note on the possibility of combining results from ATLAS and CMS we have 
 
   \item How is the p-value converted to the significance?
 
-  \noindent Put very nice answer here.
+  \noindent The p-value can be converted to a significance level by using
+
+  \begin{equation}
+  	p = \int\limits_{Z}^{\infty} \textrm{d}x \cdot \frac{1}{\sqrt{2\pi}} e^{-\frac{x^{2}}{2}} = \frac{1}{2} P_{\chi^{2}_{1}}\left(Z^{2}\right)
+  \end{equation}
+
+  \noindent and adopting the convention of a 'one-sided Gaussian tail'.
+  Here $P_{\chi^{2}_{1}}\left(Z^{2}\right)$ stands for the survival function of $\chi^{2}$ for one degree of freedom.
 
   \item Why is the look-elsewhere effect relevant and how was it estimated?
 
-  \noindent Put very nice answer here.
+  \noindent \noindent Since one tests for the \textit{background - only} hypothesis man times as the mass of the Higgs boson is scanned one has to consider the look-elsewhere effect.
+  Because one calculates the \textit{local} p-value for fixed $m_{H}$ we have to convert to the \textit{global} variables.
+  The p-value therefore becomes
+
+  \begin{equation}
+  	p_{b}^{\textrm{global}} \leq \left<N_{u_{0}}\right> \cdot e^{-\frac{u - u_{0}}{2}}
+  \end{equation}
+
+  \noindent where $\left<N_{u_{0}}\right>$ is the average number of up-crossings of the likelihood ratio scan at level $u_{0}$. \\
+
+  \noindent Eventually this procedure will give an estimate the factor by which one needs to change the \textit{local} p-value.
 
   \item Why does the analysis introduce nuisance parameters and how many of them are there for ATLAS and CMS?
 
-  \noindent Put very nice answer here.
+  \noindent Nuisance parameters are introduced such that one split sources of uncertainty to completely correlated or completely uncorrelated.
+  Also, multiple uncertainties might be handled by only one nuisance parameter. \\
+  In the paper only one table for the nuisance parameters which are completely correlated between ATLAS and CMS is given.
+  The table features 19 different parameters.
 
   \item Which shape do these nuisance parameters have?
 
-  \noindent Put very nice answer here.
+  \noindent If a parameter is unconstrained it is considered to be flat. \\
+  For systematic uncertainties, for which the values are also allowed to be negative, one uses a standard Gaussian $pdf$, i.e.
+
+  \begin{equation}
+  	p\left(\theta\right) = \frac{1}{\sqrt{2\pi}\sigma} \cdot e^{-\frac{(\theta - \tilde{\theta})^{2}}{2\sigma^{2}}}.
+  \end{equation}
+
+  \noindent For parameters which are not allowed to be negative, e.g. the impact parameter, one uses a log-normal $pdf$,
+
+  \begin{equation}
+  	p\left(\theta\right) = \frac{1}{\sqrt{2\pi}\textrm{ln}(\kappa)} \cdot \frac{1}{\theta} \cdot e^{-\frac{\left(\textrm{ln}\left(\frac{\theta}{\tilde{\theta}}\right)\right)^{2}}{2\left(\textrm{ln}(\kappa)\right)^{2}}},
+  \end{equation}
+
+  \noindent where $\kappa$ characterises the width. \\
+  For uncertainties associated with MC events one uses the gamma distribution, i.e.
+
+  \begin{equation}
+  	p(n) = \frac{\left(\frac{n}{\alpha}\right)^{N}}{N\,!} \cdot \frac{e^{-\frac{n}{\alpha}}}{\alpha}.
+  \end{equation}
+
 
   \item How is the starting point of the Higgs boson mass chosen?
 
-  \noindent Put very nice answer here.
+  \noindent The choise of Higgs boson mass points is driven by the two decays
+
+  \begin{align*}
+  	H & \rightarrow 2\gamma \, , \quad \textrm{and} \\
+  	H & \rightarrow ZZ \rightarrow 4l.
+  \end{align*}
+
+  \noindent Depending on the model of computation it was decided to start searching at values of \SI{110}{\giga\electronvolt}.
 
   \item Explain what figures 8, 9 and 10 represent.
 
@@ -187,7 +242,14 @@ Given a note on the possibility of combining results from ATLAS and CMS we have 
 
   \item Explain how the likelihood of equation 20 is constructed.
 
-  \noindent Put very nice answer here.
+  \noindent The likelihood function is simply constructed by the model given in equation 2 in the paper, i.e.
+
+  \begin{equation}
+  	\mathcal{L}\left(\textrm{data}\,|\,\mu, \theta\right) = \textrm{Poisson}\left(\mu \cdot s(\theta) + b(\theta)\right) \cdot p(\tilde{\theta}\, | \, \theta)
+  \end{equation}
+
+  \noindent where $p(\tilde{\theta}\,|\,\theta)$ is the systematic error $pdf$. \\
+  Of course, one has to sum over all channels which leads to a product after applying the logarithm.
 \end{enumerate}
 
 
