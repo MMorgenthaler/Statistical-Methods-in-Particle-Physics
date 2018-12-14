@@ -174,9 +174,20 @@ You can find a visualisation of the first iteration of datapoints in figure \ref
 \end{figure}
 
 \noindent Next, we calculate the test statistic $\Lambda$ for every iteration.
-The histograms for $H_{0}$ and $H_{1}$ can be found in figure \ref{fig:ex9_iter}. % change address
+This is done via
 
+\begin{equation}
+\Lambda = \frac{\sum\limits_{i = 0}^{1000} \textrm{ln}\left(A_{\textrm{bkg}}\right) - a\cdot x_{i} + \textrm{ln}\left(A_{\textrm{sig}}\right) - \frac{(x_{i} - \mu)^{2}}{\sigma}}{\sum\limits_{i = 0}^{1000} \textrm{ln}\left(A_{\textrm{bkg}}\right) - a\cdot x_{i}}.
+\end{equation}
 
+\noindent The histograms for $H_{0}$ and $H_{1}$ can be found in figure \ref{fig:ex9_lambda}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.6\textwidth]{./exercise09_Lambda.png}
+  \caption{Visualisation distribution of $\Lambda$.}
+  \label{fig:ex9_lambda}
+\end{figure}
 
 \end{myfont}
 \end{document}
