@@ -158,11 +158,17 @@ As said before we use an exponential function for the background and an exponent
 
 \begin{align}
 f_{\textrm{bkg}} = A_{\textrm{bkg}} \cdot \textrm{exp}(- a \cdot x) \\
-f_{\textrm{sig}} = A_{\textrm{sig}} \cdot \textrm{exp}\left(\frac{(x - \mu)^{2}}{\sigma}\right)
+f_{\textrm{sig}} = A_{\textrm{sig}} \cdot \textrm{exp}\left(-\frac{(x - \mu)^{2}}{2\sigma^{2}}\right)
 \end{align}
 
-\noindent with the amplitudes $A_{\textrm{bkg}}$ and $A_{\textrm{sig}}$. \\
-We generate \num{1000} times \num{1e5} datapoints for the \textit{background-only} and the \textit{background+signal} hypothesis.
+\noindent with the amplitudes
+
+\begin{align*}
+A_{\textrm{bkg}} & = -\frac{a}{e^{-am_{2}} - e^{-am_{1}}} \;\approx\; \num{1.679e-3}, \\
+A_{\textrm{sig}} & = \frac{\sqrt{\frac{2}{\pi}}}{\sigma \cdot \left[\textrm{Erf}\left(\frac{\mu - m_{1}}{\sqrt{2}\sigma}\right) - \textrm{Erf}\left(\frac{\mu - m_{2}}{\sqrt{2}\sigma}\right)\right]} \;\approx\; \num{3.131e-2}.
+\end{align*}
+
+\noindent We generate \num{1000} times \num{1e5} datapoints for the \textit{background-only} and the \textit{background+signal} hypothesis.
 You can find a visualisation of the first iteration of datapoints in figure \ref{fig:ex9_iter}.
 
 \begin{figure}[H]

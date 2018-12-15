@@ -14,15 +14,16 @@ void exercise09_2(){
 
   // create functions for background + signal and background only data
   TF1 * f_bkg = new TF1("f_bkg", "[0] * TMath::Exp(- x * [1])", 200, 1500);
-  double A_ = 1.0;
+  double A_bkg_ = 0.00167897;
   double a_ = 1e-3; // GeV⁻¹
-  f_bkg->SetParameters(A_, a_);
+  f_bkg->SetParameters(A_bkg_, a_);
 
-  TF1 * f_sig = new TF1("f_sig", "1.0 / (TMath::Sqrt(2.0 * TMath::Pi()) * [0]) * TMath::Exp(-0.5 * (TMath::Power((x - [1]) / [0], 2)))", 200, 1500);
+  TF1 * f_sig = new TF1("f_sig", "[0] / (TMath::Sqrt(2.0 * TMath::Pi()) * [1]) * TMath::Exp(-0.5 * (TMath::Power((x - [2]) / (TMath::Sqrt(2) * [1]), 2)))", 200, 1500);
   double frac_ = 0.3; // how often is signal generated? 30/100!
+  double A_sig_ = 0.03131;
   double sig_ = 30.0 / 2.3548; // FWHM in GeV
   double mu_ = 751.0; // in GeV
-  f_sig->SetParameters(sig_, mu_);
+  f_sig->SetParameters(A_sig_, sig_, mu_);
 
   // generate values
   unsigned long M_ = 1e3;
@@ -72,8 +73,8 @@ void exercise09_2(){
   double val_H0 = 0.0, val_H1 = 0.0;
   for(unsigned i = 0; i < M_; i++){
     for(unsigned j = 0; j < N_; j++){
-      val_H0 += TMath::Log(A_) - a_ * arr_bkg[i][j];
-      val_H1 += TMath::Log(A_) - a_ * arr_bkg[i][j] + TMath::Log(A_) - TMath::Power(arr_sig[i][j] - mu_, 2) / sig_;
+      val_H0 += TMath::Log(A_bkg_) - a_ * arr_bkg[i][j];
+      val_H1 += TMath::Log(A_bkg_) - a_ * arr_bkg[i][j] + TMath::Log(A_sig_) - TMath::Power(arr_sig[i][j] - mu_, 2) / sig_;
     }
     L_H0[i] = val_H0;
     L_H1[i] = val_H1;
@@ -81,10 +82,11 @@ void exercise09_2(){
     val_H1 = 0.0;
 
     Lambda[i] = L_H1[i] / L_H0[i];
+    std::cout << Lambda[i] << std::endl;
   }
 
   // create histogram with Lambda
-  TH1D * hist_lambda = new TH1D("hist_lambda", "Distribution of Lambda", 100, 9965, 10265); // 10115
+  TH1D * hist_lambda = new TH1D("hist_lambda", "Distribution of Lambda", 100, 1002, 1032); // 10115
   for(unsigned i = 0; i < M_; i++){
     hist_lambda->Fill(Lambda[i]);
   }
