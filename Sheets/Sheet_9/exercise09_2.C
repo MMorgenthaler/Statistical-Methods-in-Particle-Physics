@@ -13,107 +13,76 @@ void exercise09_2(){
   rndm->SetSeed(822826282124240);
 
   // create functions for background + signal and background only data
-  TF1 * f_bkg = new TF1("f_bkg", "[0] * TMath::Exp(- x * [1])", 200, 1500);
-  double A_bkg_ = 0.00167897;
-  double a_ = 1e-3; // GeV⁻¹
-  f_bkg->SetParameters(A_bkg_, a_);
+  TF1 * f_bkg = new TF1("f_bkg", "[0] * TMath::Exp([1] * x)", 200, 1500);
+  double A_bkg = 0.00167897;
+  double a = -1.0e-3; // GeV⁻¹
+  f_bkg->SetParameters(A_bkg, a);
 
-  TF1 * f_sig = new TF1("f_sig", "[0] / (TMath::Sqrt(2.0 * TMath::Pi()) * [1]) * TMath::Exp(-0.5 * (TMath::Power((x - [2]) / (TMath::Sqrt(2) * [1]), 2)))", 200, 1500);
-  double frac_ = 0.3; // how often is signal generated? 30/100!
-  double A_sig_ = 0.03131;
-  double sig_ = 30.0 / 2.3548; // FWHM in GeV
-  double mu_ = 751.0; // in GeV
-  f_sig->SetParameters(A_sig_, sig_, mu_);
+  TF1 * f_sig = new TF1("f_sig", "[0] * TMath::Exp(-0.5 * (TMath::Power((x - [2]) / (TMath::Sqrt(2) * [1]), 2)))", 200, 1500);
+  double A_sig = 0.03131;
+  double sig = 30.0; // FWHM in GeV
+  double mu = 751.0; // in GeV
+  f_sig->SetParameters(A_sig, sig, mu);
+
+  TF1 * f_comb = new TF1("f_comb", "[0] * 10.0 / 13.0 * TMath::Exp([1] * x) + [2] * 3.0 / 13.0 * TMath::Exp(-0.5 * (TMath::Power((x - [3]) / (TMath::Sqrt(2) * [4]), 2)))", 200, 1500);
+  double A_comb = 0.03126;
+  f_comb->SetParameters(A_bkg, a, A_sig,mu, sig);
+
 
   // generate values
-  unsigned long M_ = 1e3;
-  unsigned long N_ = 1e5;
+  unsigned long M = 1e3;
+  unsigned long N = 1e5;
 
-  double ** arr_bkg = new double * [M_];
-  double ** arr_sig = new double * [M_];
-  for(unsigned i = 0; i < M_; i++){
-    arr_bkg[i] = new double[N_];
-    arr_sig[i] = new double[N_];
+  // random variables to be stored in
+  double ** arr_bkg = new double * [M];
+  double ** arr_comb = new double * [M];
+  for(unsigned i = 0; i < M; i++){
+    arr_bkg[i] = new double[N];
+    arr_comb[i] = new double[N];
   }
 
-  std::cout << "-- Generate data..." << std::endl;
-  for(unsigned long i = 0; i < M_; i++){
-    for(unsigned long j = 0; j < N_; j++){
+  double frac = 10.0 / 13.0;
+
+  // calculate Lambda
+  double Lambda1[M], Lambda2[M];
+
+  for(unsigned i = 0; i < M; i++){
+    Lambda1[i] = 1.0;
+    Lambda2[i] = 1.0;
+  }
+
+  double test1 = 1.0, test2 = 1.0; // used for testing
+
+  std::cout << "-- Progress" << std::endl;
+  for(unsigned long i = 0; i < M; i++){
+    for(unsigned long j = 0; j < N; j++){
       arr_bkg[i][j] = f_bkg->GetRandom();
-      if(j > frac_ * N_){
-        arr_sig[i][j] = f_bkg->GetRandom();
-      }
-      else{
-        arr_sig[i][j] = f_sig->GetRandom();
-      }
+      arr_comb[i][j] = f_comb->GetRandom();
+      // Lambda for s+b hypothesis
+      Lambda1[i] *= f_comb->Eval(arr_comb[i][j]) / f_bkg->Eval(arr_bkg[i][j]);
+      test1 *= f_comb->Eval(arr_comb[i][j]);
+      test2 *= f_bkg->Eval(arr_comb[i][j]);
     }
-    if(i % 50 == 0) std::cout << static_cast<double> (i) / 10 << "%" << std::endl;
+    Lambda2[i] = test1 / test2;
+    std::cout << Lambda1[i] << "  " << Lambda2[i] << std::endl;
+    test1 = 1.0;
+    test2 = 1.0;
   }
+
 
   TH1D * hist_bkg = new TH1D("hist_bkg_only", "Background only data", 200, 200, 1500);
   hist_bkg->SetFillColor(kBlue);
   hist_bkg->SetFillStyle(3005);
-  TH1D * hist_sig = new TH1D("hist_bkg_sig", "Background and signal data", 200, 200, 1500);
-  hist_sig->SetFillColor(kOrange);
+  TH1D * hist_comb = new TH1D("hist_comb", "Background and signal data", 200, 200, 1500);
+  hist_comb->SetFillColor(kOrange);
 
-  for(unsigned long i = 0; i < N_; i++){
+  for(unsigned long i = 0; i < N; i++){
     hist_bkg->Fill(arr_bkg[0][i]);
-    hist_sig->Fill(arr_sig[0][i]);
+    hist_comb->Fill(arr_comb[0][i]);
   }
 
   TCanvas * canvas = new TCanvas("canvas", "canvas", 10, 10, 900, 600);
-  hist_sig->Draw();
+  hist_comb->Draw();
   hist_bkg->Draw("same");
   canvas->SaveAs("exercise09_MCdata.png");
-
-  //std::cout << f_bkg->Eval(200.0) << std::endl;
-
-  // calculate Lambda
-  double L_H0[M_], L_H1[M_], Lambda[M_];
-  double val_H0 = 0.0, val_H1 = 0.0;
-  for(unsigned i = 0; i < M_; i++){
-    for(unsigned j = 0; j < N_; j++){
-      val_H0 += TMath::Log(A_bkg_) - a_ * arr_bkg[i][j];
-      val_H1 += TMath::Log(A_bkg_) - a_ * arr_bkg[i][j] + TMath::Log(A_sig_) - TMath::Power(arr_sig[i][j] - mu_, 2) / sig_;
-    }
-    L_H0[i] = val_H0;
-    L_H1[i] = val_H1;
-    val_H0 = 0.0;
-    val_H1 = 0.0;
-
-    Lambda[i] = L_H1[i] / L_H0[i];
-    std::cout << Lambda[i] << std::endl;
-  }
-
-  // create histogram with Lambda
-  TH1D * hist_lambda = new TH1D("hist_lambda", "Distribution of Lambda", 100, 1002, 1032); // 10115
-  for(unsigned i = 0; i < M_; i++){
-    hist_lambda->Fill(Lambda[i]);
-  }
-  TCanvas * canvas2 = new TCanvas("canvas2", "canvas2", 10, 10, 900, 600);
-  hist_lambda->SetFillColor(kOrange);
-  hist_lambda->SetTitle("Distribution of #Lambda");
-  hist_lambda->SetXTitle("#Lambda value");
-  hist_lambda->SetYTitle("Number of points");
-  hist_lambda->Draw();
-  canvas2->SaveAs("exercise09_Lambda.png");
-
-
-  // clean memory
-  for(unsigned i = 0; i < M_; i++){
-    delete[] arr_bkg[i];
-    delete[] arr_sig[i];
-  }
-  delete[] arr_bkg;
-  delete[] arr_sig;
-  delete hist_bkg;
-  delete hist_sig;
-  delete canvas;
-  delete f_bkg;
-  delete f_sig;
-  delete rndm;
-
-  exit(1);
-
-  return;
 }

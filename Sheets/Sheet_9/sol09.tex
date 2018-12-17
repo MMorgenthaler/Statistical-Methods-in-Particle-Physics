@@ -183,17 +183,38 @@ You can find a visualisation of the first iteration of datapoints in figure \ref
 This is done via
 
 \begin{equation}
-\Lambda = \frac{\sum\limits_{i = 0}^{1000} \textrm{ln}\left(A_{\textrm{bkg}}\right) - a\cdot x_{i} + \textrm{ln}\left(A_{\textrm{sig}}\right) - \frac{(x_{i} - \mu)^{2}}{\sigma}}{\sum\limits_{i = 0}^{1000} \textrm{ln}\left(A_{\textrm{bkg}}\right) - a\cdot x_{i}}.
+\Lambda = \frac{\prod_{i=1}^{\num{e5}}f_{\textrm{sig}} + f_{\textrm{bkg}}}{\prod_{i=1}^{\num{e5}}f_{\textrm{bkg}}} = \prod_{i=1}^{\num{e5}}\frac{f_{\textrm{sig}} + f_{\textrm{bkg}}}{f_{\textrm{bkg}}}.
+\label{eq:Lambda}
 \end{equation}
 
-\noindent The histograms for $H_{0}$ and $H_{1}$ can be found in figure \ref{fig:ex9_lambda}.
+\noindent Here is where we have some issues which we investigated but couldn't resolve.
+An explanaition of our issue, which of course affects the rest of the exercise, is given below. \\
 
+\noindent The second equality in equation \ref{eq:Lambda} is analytically correct but can give very different results numerically. \\
+In our code we tested both parts of the equality.
+Using the left part yields \texttt{-nan} while the right part yields \texttt{inf}.
+This is due to the value of each parameter: \\
+For values generated between \SI{200}{\giga\electronvolt} and \SI{1500}{\electronvolt} (same order as $a$) we can see that $f_{\textrm{bkg}}$ will be of the order of \num{e-3}.
+Similar, for $f_\textrm{sig}$ we will get values of \num{e-2} at most.
+When multiplying \num{e5} values which are all smaller than \num{1.0} we reach the storing limit very quickly.
+In this example we already reach \num{e-100} after about \num{30} iterations\footnote{Obviously because $\prod_{1}^{100}$\num{e-3} $\approx$ \num{e-100}}.
+Because of this we numerically divide by \num{0} yielding in a \texttt{nan} value. \\
+The other case is more tricky.
+Simply speaking, because of the positive contribution of $f_{\textrm{sig}}$ we expect to get a value larger than \num{1.0} on average.
+Because we then multiply an averaged value larger than \num{1.0} \num{e5} times we reach an upper limit in storing numerical values yielding in \texttt{inf} as output. \\
+In our script we tried both ways, so you can see the \texttt{-nan} and \texttt{inf} output by yourself.
+To solve this issue one has to come up with a smarter way to calculate $\Lambda$ such that it does not diverge.
+We were not able to find such method in time, so we leave it as it is.
+
+
+\begin{comment}
 \begin{figure}[H]
   \centering
   \includegraphics[width = 0.6\textwidth]{./exercise09_Lambda.png}
   \caption{Visualisation distribution of $\Lambda$.}
   \label{fig:ex9_lambda}
 \end{figure}
+\end{comment}
 
 \end{myfont}
 \end{document}
