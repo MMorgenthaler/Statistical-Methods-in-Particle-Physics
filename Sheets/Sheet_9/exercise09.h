@@ -9,7 +9,7 @@ const double sigma = 30;
 const double offset = mLow;
 const double a = -0.001;
 const double bins = 130;
-double gauss_height, normalizationH1, normalizationH0;
+double gauss_height, normH1, normH0, norm_s;
 
 #endif /* exercise_09_h */
 
