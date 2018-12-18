@@ -24,13 +24,15 @@ given information:
 vector<double> TestStatQ (vector<vector<double>> data) {
 	vector<double> Q (amount_MC, 1.);
 	double LH1, LH0;
-	
+	int count = 0;
 	for(int i=0; i<amount_MC; i++) {
-		for(auto x:data[i]) { 
-			LH1 = normalizationH1*(gauss_height*exp(-0.5*pow((x-mean)/sigma,2)) + exp(0.+a*x));
-			LH0 = normalizationH0*exp(0.+a*x);
+		for(double x:data[i]) { 
+			LH1 = normH1*(gauss_height*exp(-0.5*pow((x-mean)/sigma,2)) + exp(a*x));
+			LH0 = normH0*exp(a*x);
 			Q[i] *= LH1/LH0;
+			//Q[i] *= (normH1/normH0)*(gauss_height*exp(-0.5*pow((x-mean)/sigma,2)-a*x) + 1.);
 		}
+		cout << Q[i] << endl;
 	}
 	return Q;
 };
@@ -39,18 +41,19 @@ void ScaleAndNormCalc() {
 	// calculate the signal height relative to bkg to gain 30 signal evts for 100 bkg events
 	TF1* sig_pdf = new TF1 ("Signal_pdf", "gaus(0)", mLow, mHigh);
 	sig_pdf->SetParameters(1., mean, sigma);
-	TF1* bkg_pdf = new TF1 ("Signal_pdf", "expo(0)", mLow, mHigh);
+	TF1* bkg_pdf = new TF1 ("Bkg_pdf", "expo(0)", mLow, mHigh);
 	bkg_pdf->SetParameters(0., a);
-	gauss_height = (30./130.)*(bkg_pdf->Integral(mLow, mHigh))/(sig_pdf->Integral(mLow, mHigh));
 	
-	normalizationH0 = 1./bkg_pdf->Integral(mLow,mHigh);
+	gauss_height = (30./130.)*(bkg_pdf->Integral(mLow, mHigh))/(sig_pdf->Integral(mLow, mHigh));
+	norm_s = 1./sig_pdf->Integral(mLow,mHigh);
+	normH0 = 1./bkg_pdf->Integral(mLow,mHigh);
 	
 	// define combined pdf and calculate normalization
 	TF1* H1_pdf = new TF1 ("H1_pdf", "gaus(0) + expo(3)", mLow, mHigh);
 	// gaus(0) substitutes [0]*exp(-0.5*((x-[1])/[2])**2) 
 	// expo(3) substitutes exp([3]+[4]*x)
 	H1_pdf->SetParameters(gauss_height, mean, sigma, 0., a); 
-	normalizationH1 = 1./H1_pdf->Integral(mLow,mHigh);
+	normH1 = 1./H1_pdf->Integral(mLow,mHigh);
 }
 
 vector<double> H1_MC_generator () {
@@ -70,7 +73,7 @@ vector<double> H1_MC_generator () {
 vector<double> H0_MC_generator () {
 	vector<double> H0_MC;
 	
-	TF1* H0_pdf = new TF1 ("H0_pdf", "exp([0]+[1]*x)", mLow, mHigh); 
+	TF1* H0_pdf = new TF1 ("H0_pdf", "expo(0)", mLow, mHigh); 
 	// expo(0) substitutes exp([0]+[1]*x)
 	H0_pdf->SetParameters(0., a); 
 	for(int i=0; i<evts; i++) H0_MC.push_back(H0_pdf->GetRandom());
