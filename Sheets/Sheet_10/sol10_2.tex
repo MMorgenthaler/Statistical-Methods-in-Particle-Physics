@@ -1,0 +1,209 @@
+\documentclass[10pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% packages %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[english]{babel} % Choose english language
+\usepackage[labelfont = bf, font = small]{caption} % Use caption package. Use bold font for caption.
+\usepackage{siunitx} % Use siunitx for unit representation.
+\newcommand{\RM}[1]{\MakeUppercase{\romannumeral #1{:}}}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{lmodern}
+\usepackage{filecontents}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[bottom]{footmisc}
+\usepackage{leftidx}
+\usepackage{subcaption}
+\usepackage[explicit]{titlesec}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{hyperref} % Referencing
+\usepackage{verbatim}
+\usepackage{changepage}
+\usepackage[footnote, printonlyused]{acronym}
+\usepackage{scrextend}
+\usepackage{geometry} % Change geometry of page layout
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{tocloft}
+\usepackage{tkz-euclide}
+\usepackage{listings}
+\usepackage{feynmp-auto} % Create fenynman diagrams
+\usepackage{tikz-feynman} % Create fenynman diagrams
+\usepackage{lipsum} % For testing. insert random text
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% new commands and environments %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Create custom font
+\newenvironment{myfont}{\fontfamily{put}\selectfont}{\par}
+
+% Adapt spacing between lines
+%\doublespacing
+
+% Delete dots from toc
+\renewcommand{\cftdot}{}
+
+% Change section label to roman
+\renewcommand{\thesection}{\Roman{section}}
+
+% Customize section layout
+\newcommand{\ssection}[1]{%
+  \section[#1]{\centering\normalfont\scshape #1}}
+\newcommand{\ssubsection}[1]{%
+  \subsection[#1]{\centering\normalfont\itshape #1}}
+\newcommand{\ssubsubsection}[1]{%
+  \subsubsection[#1]{\centering\normalfont #1}}
+
+% Import tikz libraries for figures
+\usetikzlibrary{positioning,shadows,arrows}
+
+% Create footnotereferencing
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
+% Change layout of page
+\hypersetup{
+  colorlinks = true,
+  linkbordercolor = {red},
+  citebordercolor = {red},
+  menubordercolor = {blue},
+  urlbordercolor = {blue},
+  linktoc = {page},
+  pagebackref = {True},
+  pdftitle = {Solution 10},
+  pdfauthor = {Nils Hoyer, Maurice Morgenthaler},
+  pdfcreator  = {pdflatex},
+  pdfproducer = {LaTeX}
+}
+
+% Change geometry of page
+\geometry{a4paper, top = 20mm, left = 20mm, right = 20mm, bottom = 15mm, headsep = 8mm, footskip = 10mm, includeheadfoot}
+
+% Decalre uits for SIunitx
+\DeclareSIUnit\femtobarn{fb^{-1}}
+\DeclareSIUnit\percent{\%}
+
+% Define colors
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.6,0.2}
+\definecolor{deeporange}{rgb}{0.9,0.2,0}
+
+% Commands for further use
+\newcommand{\testStat}{\tilde{q}_{\mu}}
+\newcommand{\lL}[2]{\mathcal{L}\left(#1 \middle|#2 \right)}
+\newcommand{\likelihood}{\mathfrak{L}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% start document %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{myfont}
+\lstset{language=C++,
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  commentstyle=\color{green}\ttfamily,
+  morecomment=[l][\color{magenta}]{\#}
+}
+
+\begin{center}
+  \begin{Large}
+    \textsc{Solution for homework assignment no. 10} \\
+  \end{Large}
+	\vspace*{0.4cm}
+    Nils Hoyer, Maurice Morgenthaler
+  \vspace*{1cm}
+\end{center}
+
+\section*{Exercise 10.2}
+ We were given a note on how the XENON collaboration uses a likelihood base method to set a limit on the Dark Matter - Standard Model Nuclei interaction. The following questions had to be answered.
+
+\begin{enumerate}[label = \textbf{\roman*}.]
+  \item Explain in a few words how the Profile Likelihood Ratio statistical approach works.
+  \noindent
+  
+  \item Why is this method advantageous compared to a “hard cut in the space parameter of interest” method?  How much better is the limit with the likelihood method?
+  \noindent
+  
+  Methods which use the "hard cut" firstly have the drawback that they are only able to give an upper limit without being able to claim a detection directly. Second, they don't take systematic uncertainties into account. Both disadvantages are not present in the presented method. ...................................How much better is the limit, tho? 
+
+  \item Why is it important to model correctly the background and how is this done in XENON100?
+  \noindent
+  
+  
+  
+  \item Which  ones  are  the  nuisance  parameters  and  how  are  they  included  in  the  full likelihood?
+  \noindent
+  There are five nuisance parameters which were introduced in the model.
+  \begin{itemize}
+      \item expected numbers of background events $N_b$
+      \item the probabilities $\epsilon_s = \left\{ \epsilon^j_s\right\}$ and $\epsilon_b = \left\{ \epsilon^j_b\right\}$ 
+      \item relative scintillation efficiency $\mathcal{L}_{eff}$
+      \item escape velocity $v_{esc}$
+  \end{itemize}
+  The likelihood $\likelihood$ has the form 
+  
+  \begin{equation}
+      \likelihood = \likelihood_1\{\sigma, N_b, \epsilon_s, \epsilon_b, \mathcal{L}_{eff}, v_{esc}; m_{\chi}\} \times \likelihood_2\{\epsilon_s\} \times \likelihood_3\{\epsilon_b\} \times \likelihood_4\{\mathcal{L}_{eff}\} \times \likelihood_5\{v_{esc}\}
+  \end{equation}
+  Therefore the nuisance parameters are included via the main likelihood $\likelihood_1$ as well as the subsidiary likelihoods $\likelihood_2$ to $\likelihood_5$.
+  
+  \item Which are the test statistics for the exclusion and the discovery case?
+  \noindent
+  
+  In both cases the profile likelihood $\lambda{(\sigma)}$ is used.
+  \begin{equation}
+      \lambda(\sigma) = \frac{\max_{\sigma fixed} \likelihood\{\sigma; \mathcal{L}_{eff}, v_{esc}, N_b, \epsilon_s, \epsilon_b\}}{\max \likelihood\{\sigma; \mathcal{L}_{eff}, v_{esc}, N_b, \epsilon_s, \epsilon_b\}}
+  \end{equation}
+  
+  For the exclusion case the test statistic $q_{\sigma}$ is defined as
+  
+  \begin{equation}
+      q_{\sigma} = \begin{cases}
+        -2 \ln{\lambda{(\sigma)}}   &   \hat{\sigma} < \sigma \\
+        0                           &   \hat{\sigma} > \sigma
+        \end{cases}
+  \end{equation}
+  
+  As $0 \leq \lambda(\sigma) \leq 1$ the test statistics $q_{\sigma}$ will be $q_{\sigma} \geq 0$ in which a smaller value indicates a better compatibility between data and signal hypothesis.
+  
+  For the discovery case the test statistic $q_{0}$ is defined as
+  
+  \begin{equation}
+      q_{0} = \begin{cases}
+        -2 \ln{\lambda{(\sigma = 0)}}   &   \hat{\sigma} > \sigma \\
+        0                           &   \hat{\sigma} < \sigma
+        \end{cases}
+  \end{equation}
+  In this method one tries to reject the background-only hypothesis.
+  
+  \item What  is  the  difference  between  the  exclusion  sensitivity and  the  profiled  limit? What is the observed limit in this analysis?
+  \noindent
+  
+  The exclusion sensitivity is the expected limit for given conditions concerning the experiment. It can be estimated before using actual data as the median of the test statistic distribution $f(q_{\sigma}|H_0)$ with background-only data simulated according to a Poisson distribution. The profiled limit on the other hand is calculated with the profile likelihood ratio method.
+  The limit of this analysis is $\sigma^{up} < 2.4 \times 10^{-44} \si{cm^2}$ for WIMP's with a mass of about $m_{\chi} = 50 \si{GeV/c^2}$
+\end{enumerate}
+
+
+\end{myfont}
+\end{document}
