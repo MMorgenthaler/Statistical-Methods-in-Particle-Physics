@@ -174,7 +174,7 @@ This is why we calculate
   The normed distribution is
 
   \begin{equation}
-    f_{\mu}(x) = \frac{1}{\sqrt{2\pi}\left[a_{1}\sigma_{1} + a_{2}\sigma_{2}\right]} \cdot \left(a_{1} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{1}^{2}}\right\} + a_{2} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{2}^{2}}\right\}\right)
+    f_{\mu}(x) = \frac{1}{\sqrt{2\pi}\left[a_{1}\sigma_{1} + a_{2}\sigma_{2}\right]} \cdot \left(a_{1} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{1}}\right\} + a_{2} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{2}}\right\}\right)
   \end{equation}
 
   \noindent where $a_{1/2}$ indicates the strength of the contribution of that function.
@@ -199,20 +199,33 @@ This is why we calculate
 
 \begin{enumerate}[label = \textbf{\roman*}.]
   \item Explain in a few words how the Profile Likelihood Ratio statistical approach works.
-  \noindent The test statistic $q_{\sigma}$ is constructed via a profile likelihood $\lambda(\sigma)$, as written below.
-  By definition $q_{\sigma} \geq 0$.
-  It equals zero if $\hat{\sigma} = \sigma$ indicating a compatibility with a signal hypothesis.
+  \noindent
+  
+  As mentioned below in equation \ref{eq:proflikeli} and \ref{eq:teststat} the profile likelihood method is based on the ratio between the maximized likelihood function with the relevant property $\sigma$ fixed and the maximized likelihood function in case every variable is free. By definition $q_{\sigma} \geq 0$.
+  It equals zero if $\hat{\sigma} = \sigma$ indicating a compatibility with a signal hypothesis. The test statistic $q_{\sigma} \geq 0$ is used for the p-value 
+  
+  \begin{equation}
+      p_s = \int^\infty_{q^{obs}_{\sigma}} f(q_{\sigma}|H_{\sigma})  dq_{\sigma}
+  \end{equation}
+  
+  which is the probability how likely it is to get less-signal like results from further experiments, in case there is indeed a signal with cross-section $\sigma$. With other words if $p_s$ is high it is likely that the observed $\sigma$ is not just a fluctuation. In case it is low there are most likely better $\sigma$ to describe the data and by that the hypothesis $H_{\sigma}$ can be rejected with $1-p_s [\%]$ confidence. To compensate for downward fluctuations of the background $p_s$ was further modified to
+  
+  \begin{align}
+      p_s' &= \frac{p_s}{1-p_b} \\
+      1 - p_b  &= \int^\infty_{q^{obs}_{\sigma}} f(q_{\sigma}|H_{0})  dq_{\sigma}
+  \end{align}
+  Calculating the cross-section $\sigma$ for different hypothetical WIMP masses to get exactly $p_s'=0.90$ (upper limit search) and finding the minimum of the resulting plot gave the desired limit.
 
   \item Why is this method advantageous compared to a “hard cut in the space parameter of interest” method?  How much better is the limit with the likelihood method?
   \noindent
 
-  Methods which use the "hard cut" firstly have the drawback that they are only able to give an upper limit without being able to claim a detection directly. Second, they don't take systematic uncertainties into account. Both disadvantages are not present in the presented method. ...................................How much better is the limit, tho?
+  Methods which use the "hard cut" firstly have the drawback that they are only able to give an upper limit without being able to claim a detection directly. Second, they don't take systematic uncertainties into account. Both disadvantages are not present in the presented method. In the range of high masses where the older methods where used the likelihood ratio method gives a $20\% - 30\%$ better limit.
 
   \item Why is it important to model correctly the background and how is this done in XENON100?
-  \noindent Modelling the background precisely is of great importance as the cross-section of WIMPs is set to be lower that \num{e-43} in specific energy ranges given in figure 6 of the paper.
+  \noindent
+
+  Modelling the background precisely is of great importance as the cross-section of WIMPs is set to be lower that \num{e-43} in specific energy ranges given in figure 6 of the paper.
   As a result of using a wrongfully modelled background one risks of claiming the detection of WIMPs despite it only being recoils of $\beta$-radiation.
-
-
 
   \item Which  ones  are  the  nuisance  parameters  and  how  are  they  included  in  the  full likelihood?
   \noindent
@@ -234,13 +247,13 @@ This is why we calculate
   \noindent
 
   In both cases the profile likelihood $\lambda{(\sigma)}$ is used.
-  \begin{equation}
+  \begin{equation} \label{eq:proflikeli}
       \lambda(\sigma) = \frac{\max_{\sigma fixed} \likelihood\{\sigma; \mathcal{L}_{eff}, v_{esc}, N_b, \epsilon_s, \epsilon_b\}}{\max \likelihood\{\sigma; \mathcal{L}_{eff}, v_{esc}, N_b, \epsilon_s, \epsilon_b\}}
   \end{equation}
 
   For the exclusion case the test statistic $q_{\sigma}$ is defined as
 
-  \begin{equation}
+  \begin{equation} \label{eq:teststat}
       q_{\sigma} = \begin{cases}
         -2 \ln{\lambda{(\sigma)}}   &   \hat{\sigma} < \sigma \\
         0                           &   \hat{\sigma} > \sigma
@@ -251,7 +264,7 @@ This is why we calculate
 
   For the discovery case the test statistic $q_{0}$ is defined as
 
-  \begin{equation}
+  \begin{equation} 
       q_{0} = \begin{cases}
         -2 \ln{\lambda{(\sigma = 0)}}   &   \hat{\sigma} > \sigma \\
         0                           &   \hat{\sigma} < \sigma
