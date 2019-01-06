@@ -174,7 +174,7 @@ This is why we calculate
   The normed distribution is
 
   \begin{equation}
-    f_{\mu}(x) = \frac{1}{\sqrt{2\pi}\left[a_{1}\sigma_{1} + a_{2}\sigma_{2}\right]} \cdot \left(a_{1} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{1}}\right\} + a_{2} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{2}}\right\}\right)
+    f_{\mu}(x) = \frac{1}{\sqrt{2\pi}\left[a_{1}\sigma_{1} + a_{2}\sigma_{2}\right]} \cdot \left(a_{1} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{1}^{2}}\right\} + a_{2} \cdot \textrm{exp}\left\{-\frac{(x - \mu)^{2}}{2\sigma_{2}^{2}}\right\}\right)
   \end{equation}
 
   \noindent where $a_{1/2}$ indicates the strength of the contribution of that function.
@@ -199,7 +199,9 @@ This is why we calculate
 
 \begin{enumerate}[label = \textbf{\roman*}.]
   \item Explain in a few words how the Profile Likelihood Ratio statistical approach works.
-  \noindent
+  \noindent The test statistic $q_{\sigma}$ is constructed via a profile likelihood $\lambda(\sigma)$, as written below.
+  By definition $q_{\sigma} \geq 0$.
+  It equals zero if $\hat{\sigma} = \sigma$ indicating a compatibility with a signal hypothesis.
 
   \item Why is this method advantageous compared to a “hard cut in the space parameter of interest” method?  How much better is the limit with the likelihood method?
   \noindent
@@ -207,7 +209,8 @@ This is why we calculate
   Methods which use the "hard cut" firstly have the drawback that they are only able to give an upper limit without being able to claim a detection directly. Second, they don't take systematic uncertainties into account. Both disadvantages are not present in the presented method. ...................................How much better is the limit, tho?
 
   \item Why is it important to model correctly the background and how is this done in XENON100?
-  \noindent
+  \noindent Modelling the background precisely is of great importance as the cross-section of WIMPs is set to be lower that \num{e-43} in specific energy ranges given in figure 6 of the paper.
+  As a result of using a wrongfully modelled background one risks of claiming the detection of WIMPs despite it only being recoils of $\beta$-radiation.
 
 
 
