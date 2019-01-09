@@ -41,7 +41,7 @@ void GetVal(unsigned int & start, unsigned int & end, double & cl_max, double & 
 	}
 
 
-	if(option == "lower"){
+	else if(option == "lower"){
 		double x = 0.0;	
 		for(unsigned int i = start; i <= end; i++){
 			Poisson->SetParameter(0, i);
@@ -54,7 +54,7 @@ void GetVal(unsigned int & start, unsigned int & end, double & cl_max, double & 
 	}
 
 
-	if(option == "central"){
+	else if(option == "central"){
 		double x = 0.0;
 		double y = 0.0;
 		double value = (1.0 - cl_max) / 2.0;
