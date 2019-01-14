@@ -183,8 +183,41 @@
 \end{itemize}
 
 \section*{Exercise 11.2}
+\label{sec:11_2}
+
+Given the total number of observed events $n_{\textrm{tot}} = n_{\textrm{S}} + n_{\textrm{B}}$ where $n_{\textrm{S}}$ is the number of signal and $n_{\textrm{B}}$ the number of background events we are asked to derive an upper limit for the mean $\nu_{\textrm{S}}$ at the \SI{95}{\percent} confidence limit.
+We also know that $\nu_{\textrm{B}}$ and that $n$ follows a Poissonian distribution. \\
+To answer this question we relate the upper limit with respect to a Poissonian distribution and the quantile of the $\chi^{2}$ distribution such that
+
+\begin{equation}
+	s_{\textrm{up}} = \frac{1}{2} \textrm{F}_{\chi^{2}}^{-1}\left[p, 2(n+1)\right] - b.
+\end{equation}
+
+\noindent This is possible because of the relation between the cumulative Poissonian distribution and the cumulative $\chi^{2}$ distribution.
+
+\begin{equation}
+	\textrm{Pr}(X = k) = \textrm{F}_{\chi^{2}}(2\lambda; 2(k+1)) - \textrm{F}_{\chi^{2}}(2\lambda; 2k)
+\end{equation}
+
+\noindent The implementation into code is given in file \texttt{exercise11\_2.C}. \\
+Using $n_{obs} =$ \num{5} yields $\nu_{S}^{max} \approx$ \num{8.73096}.
 
 
+\section*{Exercise 11.3}
+
+We are asked to verify the value obtained in exercise \ref{sec:11_2}.
+To do this we use \num{10000} toy Monte Carlo experiments to generate random variables according to a Poissonian distribution with mean $\nu = \nu_{\textrm{B}} + \nu_{\textrm{S}}^{\textrm{max}}$ where $\nu_{\textrm{S}}^{\textrm{max}}$ is used from exercise 11.2.
+By construction the number of events $< n_{\textrm{obs}}$ should be \SI{5}{\percent}. \\
+The implementation into code is given in file \texttt{exercise11\_3.C}.
+The plot showing the results is given in figure \ref{fig:ex11_3_results}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width = 0.6 \textwidth]{./exercise11_3.png}
+	\caption{Results from our \num{10000} Monte Carlo simulation of $n$.}
+\end{figure}
+
+\noindent Using the value given in exericse \ref{sec:11_2} we get a fraction of $n$ which is observed below $n_{obs} =$ \num{5} of \SI{4.89}{\percent} which does not disagree with the expected value of \SI{5}{\percent}.
 
 \end{myfont}
 \end{document}
