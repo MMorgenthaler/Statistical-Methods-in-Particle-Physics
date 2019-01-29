@@ -179,5 +179,25 @@ Plotting the acceptance regions of figure \ref{fig:accRegion} into figure \ref{f
 
 \section*{Exercise 12.2}
 
+In the second exercise we were given a scenario where following binomial statistics k=3 out of n=10 electronic chips fail a functional test.
+
+\paragraph{a)} We should calculate equal-tailed $95\%$ Cl intervals for the single-chip fail probability $\epsilon$ using the Clopper-Pearson construction.
+
+It says that in such a scenario the upper limit $p^{u}$ is given by $P(X \leq k;p^{u}) = 1-\alpha /2 = 0.025$ while the lower limit $p^{l}$ is given by $P(X \geq k;p^{l}) = 1-\alpha /2 = 0.025$.
+
+For the construction it is needed to know that  
+there is a relation between the binomial distribution and the quantiles of the beta distribution $\beta_{\gamma}(a;b)$ where a,b are the shape parameters.
+\begin{equation}
+    \sum^k_{i=0} \binom{n}{i} \cdot p^i \cdot (1-p)^{(n-i)} = \beta_{1-p}(n-k;k+1)
+\end{equation}
+
+Using the relation of  we get for the limits:
+\begin{equation}
+    p^{l} = \beta_{\alpha/2}(k;n-(k-1)) = 0.0667 
+\end{equation}
+
+\begin{equation}
+    p^{u} = \beta_{1-\alpha/2}(k+1;n-k) = 0.6524 
+\end{equation}
 \end{myfont}
 \end{document}\documentclass{article}
